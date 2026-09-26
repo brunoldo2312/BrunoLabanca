@@ -1,74 +1,34 @@
-// ==========================================
-// CONFIGURAÇÃO DA API
-// ==========================================
-// ATENÇÃO: NUNCA coloque sua API Key real aqui em produção. 
-// Qualquer pessoa pode ver o código fonte do seu site e roubar a chave.
-const API_KEY = "SUA_API_KEY_AQUI"; 
-const API_URL = "https://api.intelligence.adzuna.com/v1.1/jobs/search"; 
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('vagas-container');
+  if (!container) return;
 
-// ==========================================
-// FUNÇÃO PARA BUSCAR VAGAS NA API (COM REAL)
-// ==========================================
-// Descomente esta função quando tiver um backend ou proxy para proteger a chave
-/*
-async function buscarVagasAPI() {
   try {
-    const response = await fetch(`${API_URL}?what=estagio+contabilidade+remoto&where=br`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Api-Key ${API_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!response.ok) throw new Error('Erro na requisição');
-    const data = await response.json();
-    return data.results || [];
+    const response = await fetch('./vagas.json');
+    if (!response.ok) throw new Error('Arquivo JSON não encontrado');
+    const vagas = await response.json();
+    renderizarVagas(vagas);
   } catch (error) {
-    console.error("Erro ao buscar vagas:", error);
-    return [];
+    console.warn("Usando dados de teste.");
+    const vagasMock = [
+      {
+        title: "Estágio em Contabilidade - Remoto",
+        company: "Empresa Exemplo",
+        location: "Brasil (Remoto)",
+        description: "Dado de teste.",
+        redirect_url: "#",
+        score: 10
+      }
+    ];
+    renderizarVagas(vagasMock);
   }
-}
-*/
+});
 
-// ==========================================
-// MOCK DE DADOS (Para testar o visual agora)
-// ==========================================
-// Estes são dados falsos apenas para você ver como o layout vai ficar no site.
-const vagasMock = [
-  {
-    title: "Estágio em Contabilidade - Remoto",
-    company: { display_name: "Empresa Exemplo 1" },
-    location: { display_name: "Brasil (Remoto)" },
-    description: "Vaga para estágio em contabilidade, atuação remota. Necessário conhecimento em Excel e rotinas fiscais.",
-    redirect_url: "#"
-  },
-  {
-    title: "Estágio em Controladoria (Home Office)",
-    company: { display_name: "Empresa Exemplo 2" },
-    location: { display_name: "SÃO PAULO, SP (Remoto)" },
-    description: "Buscamos estagiário de contabilidade para auxiliar na conciliação e relatórios gerenciais.",
-    redirect_url: "#"
-  },
-  {
-    title: "Estágio em Auditoria - Remoto",
-    company: { display_name: "Empresa Exemplo 3" },
-    location: { display_name: "Rio de Janeiro, RJ (Remoto)" },
-    description: "Oportunidade para estudantes de contabilidade com foco em auditoria e compliance.",
-    redirect_url: "#"
-  }
-];
-
-// ==========================================
-// FUNÇÃO PARA RENDERIZAR AS VAGAS NO HTML
-// ==========================================
 function renderizarVagas(vagas) {
   const container = document.getElementById('vagas-container');
-  if (!container) return; // Segurança caso a div não exista
-
-  container.innerHTML = ''; // Limpa o aviso de "Carregando..."
+  container.innerHTML = ''; 
 
   if (vagas.length === 0) {
-    container.innerHTML = '<div class="loading">Nenhuma vaga encontrada no momento.</div>';
+    container.innerHTML = '<div class="loading">Nenhuma vaga compatível encontrada no momento.</div>';
     return;
   }
 
@@ -76,15 +36,23 @@ function renderizarVagas(vagas) {
     const card = document.createElement('div');
     card.className = 'vaga-card';
     
-    // Tratando a estrutura do JSON (ajuste conforme o retorno real da API Adzuna)
     const titulo = vaga.title || "Vaga sem título";
-    const empresa = vaga.company?.display_name || "Empresa não informada";
-    const local = vaga.location?.display_name || "Local não informado";
+    const empresa = vaga.company || "Empresa não informada";
+    const local = vaga.location || "Local não informado";
     const descricao = vaga.description ? vaga.description.substring(0, 150) + "..." : "Sem descrição.";
     const link = vaga.redirect_url || "#";
+    const score = vaga.score || 0;
+
+    // Define a cor e o texto da etiqueta com base no score
+    let badgeHtml = '';
+    if (score >= 10) {
+      badgeHtml = `<span style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-left: 10px;">🌟 Alta Compatibilidade</span>`;
+    } else if (score >= 6) {
+      badgeHtml = `<span style="background: #3b82f6; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-left: 10px;">👍 Boa Compatibilidade</span>`;
+    }
 
     card.innerHTML = `
-      <h3>${titulo}</h3>
+      <h3>${titulo} ${badgeHtml}</h3>
       <div class="empresa"><i class="fas fa-building"></i> ${empresa}</div>
       <div class="local"><i class="fas fa-map-marker-alt"></i> ${local}</div>
       <div class="descricao">${descricao}</div>
@@ -93,18 +61,3 @@ function renderizarVagas(vagas) {
     container.appendChild(card);
   });
 }
-
-// ==========================================
-// INICIALIZAÇÃO (RODA QUANDO A PÁGINA CARREGA)
-// ==========================================
-document.addEventListener('DOMContentLoaded', async () => {
-  // Para usar dados reais no futuro, descomente a linha abaixo e comente a linha do Mock
-  // const vagas = await buscarVagasAPI();
-  
-  const vagas = vagasMock; // Usando dados de teste temporariamente
-  
-  // Simula um pequeno atraso de 1 segundo para você ver o efeito de "Carregando"
-  setTimeout(() => {
-    renderizarVagas(vagas);
-  }, 1000);
-});
