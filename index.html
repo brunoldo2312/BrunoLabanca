@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfólio profissional de Bruno Labanca de Oliveira - Farmacêutico com 11 anos de experiência">
+  <title>Bruno Labanca de Oliveira | Farmacêutico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #14b8a6;
+      --accent: #06b6d4;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --light: #f8fafc;
+      --white: #ffffff;
+      --border: #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--light);
+      line-height: 1.6;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%);
+      color: white;
+      padding: 80px 20px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+
+    .hero-text .role {
+      font-size: 1.4rem;
+      font-weight: 500;
+      opacity: 0.95;
+      margin-bottom: 16px;
+    }
+
+    .hero-text .location {
+      font-size: 1rem;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-contacts {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-contacts a {
+      color: white;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-contacts a:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-2px);
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1100px;
+      margin: -50px auto 0;
+      padding: 0 20px 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .card-title i {
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    /* RESUMO */
+    .summary p {
+      color: #334155;
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-tag {
+      background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+      color: var(--primary-dark);
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid #99f6e4;
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(13, 148, 136, 0.2);
+    }
+
+    /* EXPERIENCE TIMELINE */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+    }
+
+    .timeline-item .job-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 2px;
+    }
+
+    .timeline-item .company {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .timeline-item .period {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--light);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    .timeline-item ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .timeline-item ul li {
+      color: #475569;
+      font-size: 0.95rem;
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* EDUCAÇÃO */
+    .edu-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .edu-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .edu-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .edu-item .course {
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .edu-item .institution {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .edu-item .period {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* LÍNGUAS */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .lang-item {
+      background: var(--light);
+      padding: 18px;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .lang-item .lang-name {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .lang-item .lang-level {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* GRID 2 COLUNAS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    footer .heart {
+      color: #ef4444;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px 80px;
+      }
+
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+      }
+
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .hero-text .role {
+        font-size: 1.1rem;
+      }
+
+      .hero-contacts {
+        justify-content: center;
+      }
+
+      .avatar {
+        width: 130px;
+        height: 130px;
+        font-size: 52px;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        margin-top: -40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 1.6rem;
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="avatar">BL</div>
+      <div class="hero-text">
+        <h1>Bruno Labanca de Oliveira</h1>
+        <div class="role">Farmacêutico • CRF Ativo</div>
+        <div class="location">
+          <i class="fas fa-map-marker-alt"></i> Cabo Frio, Rio de Janeiro, Brasil
+        </div>
+        <div class="hero-contacts">
+          <a href="tel:+5531999368393">
+            <i class="fas fa-phone"></i> (31) 99936-8393
+          </a>
+          <a href="mailto:brunolabanca@yahoo.com.br">
+            <i class="fas fa-envelope"></i> E-mail
+          </a>
+          <a href="https://www.linkedin.com/in/bruno-labanca-de-oliveira-33369a5a" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="http://brunolabanca.comunidades.net/" target="_blank">
+            <i class="fas fa-globe"></i> Site pessoal
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- RESUMO -->
+    <section class="card summary">
+      <h2 class="card-title"><i class="fas fa-user-tie"></i> Sobre mim</h2>
+      <p>
+        Farmacêutico com <strong>11 anos de experiência</strong>, profissional ético, comunicativo, resiliente e empático, empenhado em cuidar de perto da saúde e bem-estar das pessoas em todos os momentos da vida. <strong>CRF ativo.</strong>
+      </p>
+      <p>
+        Ampla experiência em <strong>compras, financeiro e fiscal</strong>, buscando sempre o cumprimento da legislação vigente. Sólida experiência em <strong>farmacologia clínica e gerenciamento de medicamentos</strong>.
+      </p>
+      <p>
+        Conhecimento extenso de operações de farmácia, gestão de farmácia e medicamentos. Histórico comprovado de aconselhamento adequado aos clientes e uma atitude empática em relação a eles.
+      </p>
+      <p>
+        Habilidades técnicas e de comunicação excelentes, necessárias para se destacar em ambientes de trabalho de ritmo acelerado.
+      </p>
+    </section>
+
+    <!-- COMPETÊNCIAS -->
+    <section class="card">
+      <h2 class="card-title"><i class="fas fa-star"></i> Principais Competências</h2>
+      <div class="skills-grid">
+        <span class="skill-tag">Tutoria</span>
+        <span class="skill-tag">Planejamento de Aulas</span>
+        <span class="skill-tag">Ensino Superior</span>
+        <span class="skill-tag">Farmacologia Clínica</span>
+        <span class="skill-tag">Gerenciamento de Medicamentos</span>
+        <span class="skill-tag">Atenção Farmacêutica</span>
+        <span class="skill-tag">Gestão de Farmácia</span>
+        <span class="skill-tag">Compras</span>
+        <span class="skill-tag">Financeiro</span>
+        <span class="skill-tag">Fiscal</span>
+        <span class="skill-tag">SNGPC</span>
+        <span class="skill-tag">Controle de Estoque</span>
+        <span class="skill-tag">Aplicação de Injetáveis</span>
+        <span class="skill-tag">Atendimento ao Cliente</span>
+        <span class="skill-tag">Liderança de Equipe</span>
+      </div>
+    </section>
+
+    <!-- EXPERIÊNCIA -->
+    <section class="card">
+      <h2 class="card-title"><i class="fas fa-briefcase"></i> Experiência Profissional</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="job-title">Farmacêutico</div>
+          <div class="company">Droga Raia</div>
+          <div class="period"><i class="far fa-calendar"></i> Jan 2024 – Atual (1 ano 7 meses)</div>
+          <ul>
+            <li>Controle e gerenciamento de pessoal e rotinas da drogaria</li>
+            <li>Conferência de receita médica e orientação ao cliente sobre uso do medicamento</li>
+            <li>Gerenciamento de antibióticos e medicamentos controlados, do recebimento à venda</li>
+            <li>Treinamento da equipe da farmácia</li>
+            <li>Atendimento ao cliente/paciente e atenção farmacêutica</li>
+            <li>Dispensação de medicamentos e lançamentos no SNGPC</li>
+            <li>Acompanhamento e contagem de estoque de medicamentos controlados</li>
+            <li>Organização da sala de aplicação e aplicação de injetáveis</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="job-title">Farmacêutico</div>
+          <div class="company">Drogaria Bruno LTDA ME</div>
+          <div class="period"><i class="far fa-calendar"></i> Jul 2014 – Jan 2024 (9 anos 7 meses)</div>
+          <ul>
+            <li>Controle e gerenciamento de pessoal e rotinas da drogaria</li>
+            <li>Conferência de receita médica e orientação ao cliente sobre uso do medicamento</li>
+            <li>Gerenciamento de antibióticos e medicamentos controlados, do recebimento à venda</li>
+            <li>Treinamento da equipe da farmácia</li>
+            <li>Atendimento ao cliente/paciente e atenção farmacêutica</li>
+            <li>Dispensação de medicamentos e lançamentos no SNGPC</li>
+            <li>Acompanhamento e contagem de estoque de medicamentos controlados</li>
+            <li>Organização da sala de aplicação e aplicação de injetáveis</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="job-title">Estagiário</div>
+          <div class="company">Laboratório Globo</div>
+          <div class="period"><i class="far fa-calendar"></i> Jan 2012 – Nov 2012 (11 meses)</div>
+          <ul>
+            <li>Atuação no setor de Garantia da Qualidade</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="job-title">Estagiário</div>
+          <div class="company">Drogaria Araujo S/A</div>
+          <div class="period"><i class="far fa-calendar"></i> Jun 2011 – Dez 2011 (7 meses)</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GRID: FORMAÇÃO + LÍNGUAS -->
+    <div class="grid-2">
+
+      <section class="card">
+        <h2 class="card-title"><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h2>
+
+        <div class="edu-item">
+          <div class="edu-icon"><i class="fas fa-pills"></i></div>
+          <div>
+            <div class="course">Farmácia</div>
+            <div class="institution">UNIFENAS</div>
+            <div class="period">2003 – 2012</div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-icon"><i class="fas fa-chart-line"></i></div>
+          <div>
+            <div class="course">Bacharelado em Administração</div>
+            <div class="institution">Faculdade UniBF</div>
+            <div class="period">Jun 2021 – Jun 2024</div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-icon"><i class="fas fa-calculator"></i></div>
+          <div>
+            <div class="course">Contabilidade</div>
+            <div class="institution">Faculdade UniBF</div>
+            <div class="period">Mar 2022 – Dez 2025</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title"><i class="fas fa-language"></i> Idiomas</h2>
+        <div class="lang-grid">
+          <div class="lang-item">
+            <div class="lang-name">Português</div>
+            <div class="lang-level">Nativo / Bilíngue</div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-name">Inglês</div>
+            <div class="lang-level">Intermediário (Professional Working)</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2024 Bruno Labanca de Oliveira — Feito com <span class="heart">♥</span></p>
+  </footer>
+
+</body>
+</html>
