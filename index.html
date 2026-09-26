@@ -8,521 +8,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --primary: #0d9488;
-      --primary-dark: #0f766e;
-      --primary-light: #14b8a6;
-      --accent: #06b6d4;
-      --dark: #0f172a;
-      --gray: #64748b;
-      --light: #f8fafc;
-      --white: #ffffff;
-      --border: #e2e8f0;
+      --primary: #0d9488; --primary-dark: #0f766e; --accent: #06b6d4;
+      --dark: #0f172a; --gray: #64748b; --light: #f8fafc;
+      --white: #ffffff; --border: #e2e8f0;
     }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--dark);
-      background: var(--light);
-      line-height: 1.6;
-    }
-
+    body { font-family: 'Inter', sans-serif; color: var(--dark); background: var(--light); line-height: 1.6; }
     /* HERO */
-    .hero {
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%);
-      color: white;
-      padding: 80px 20px 100px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -100px;
-      left: -100px;
-      width: 300px;
-      height: 300px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 50%;
-    }
-
-    .hero-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      gap: 50px;
-      flex-wrap: wrap;
-    }
-
-    .avatar {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 64px;
-      font-weight: 800;
-      flex-shrink: 0;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .hero-text h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      letter-spacing: -1px;
-    }
-
-    .hero-text .role {
-      font-size: 1.4rem;
-      font-weight: 500;
-      opacity: 0.95;
-      margin-bottom: 16px;
-    }
-
-    .hero-text .location {
-      font-size: 1rem;
-      opacity: 0.85;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-contacts {
-      margin-top: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .hero-contacts a {
-      color: white;
-      text-decoration: none;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      padding: 10px 18px;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .hero-contacts a:hover {
-      background: rgba(255, 255, 255, 0.28);
-      transform: translateY(-2px);
-    }
-
+    .hero { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%); color: white; padding: 80px 20px 100px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; }
+    .hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 300px; height: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; }
+    .hero-content { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+    .avatar { width: 160px; height: 160px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 4px solid rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; flex-shrink: 0; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); }
+    .hero-text h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -1px; }
+    .hero-text .role { font-size: 1.4rem; font-weight: 500; opacity: 0.95; margin-bottom: 16px; }
+    .hero-text .location { font-size: 1rem; opacity: 0.85; display: flex; align-items: center; gap: 8px; }
+    .hero-contacts { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-contacts a { color: white; text-decoration: none; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); padding: 10px 18px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); }
+    .hero-contacts a:hover { background: rgba(255, 255, 255, 0.28); transform: translateY(-2px); }
     /* CONTAINER */
-    .container {
-      max-width: 1100px;
-      margin: -50px auto 0;
-      padding: 0 20px 60px;
-      position: relative;
-      z-index: 2;
-    }
-
+    .container { max-width: 1100px; margin: -50px auto 0; padding: 0 20px 60px; position: relative; z-index: 2; }
     /* CARDS */
-    .card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 36px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-      border: 1px solid var(--border);
-    }
+    .card { background: var(--white); border-radius: 16px; padding: 36px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06); border: 1px solid var(--border); }
+    .card-title { font-size: 1.4rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+    .card-title i { color: var(--primary); font-size: 1.2rem; }
+    /* RESUMO, SKILLS, TIMELINE, EDUCAÇÃO (Mantidos do seu código original) */
+    .summary p { color: #334155; margin-bottom: 14px; font-size: 1rem; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-tag { background: linear-gradient(135deg, #f0fdfa, #ccfbf1); color: var(--primary-dark); padding: 10px 18px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; border: 1px solid #99f6e4; transition: all 0.3s ease; }
+    .skill-tag:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(13, 148, 136, 0.2); }
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 2px; }
+    .timeline-item { position: relative; margin-bottom: 32px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-item::before { content: ''; position: absolute; left: -32px; top: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--white); border: 3px solid var(--primary); box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15); }
+    .timeline-item .job-title { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+    .timeline-item .company { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+    .timeline-item .period { font-size: 0.85rem; color: var(--gray); font-weight: 500; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 6px; background: var(--light); padding: 4px 12px; border-radius: 50px; }
+    .timeline-item ul { list-style: none; padding: 0; }
+    .timeline-item ul li { color: #475569; font-size: 0.95rem; padding-left: 20px; position: relative; margin-bottom: 8px; }
+    .timeline-item ul li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+    .edu-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .edu-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .edu-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .edu-item .course { font-weight: 700; color: var(--dark); font-size: 1rem; margin-bottom: 2px; }
+    .edu-item .institution { color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
+    .edu-item .institution a { color: var(--primary); text-decoration: none; transition: color 0.3s ease; }
+    .edu-item .institution a:hover { color: var(--primary-dark); text-decoration: underline; }
+    .edu-item .period { color: var(--gray); font-size: 0.85rem; }
+    .lang-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .lang-item { background: var(--light); padding: 18px; border-radius: 12px; border-left: 4px solid var(--primary); }
+    .lang-item .lang-name { font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .lang-item .lang-level { color: var(--gray); font-size: 0.9rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    
+    /* NOVO: ESTILOS PARA VAGAS */
+    .vagas-container { display: flex; flex-direction: column; gap: 16px; }
+    .vaga-card { background: var(--light); padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary); display: flex; flex-direction: column; gap: 8px; transition: transform 0.2s; }
+    .vaga-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .vaga-card h3 { font-size: 1.1rem; color: var(--dark); }
+    .vaga-card .empresa { font-weight: 600; color: var(--primary); font-size: 0.95rem; }
+    .vaga-card .local { color: var(--gray); font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+    .vaga-card .descricao { font-size: 0.9rem; color: #475569; margin-top: 4px; }
+    .vaga-card .btn-link { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; width: fit-content; margin-top: 8px; transition: background 0.3s; }
+    .vaga-card .btn-link:hover { background: var(--primary-dark); }
+    .loading { text-align: center; padding: 20px; color: var(--gray); }
+    .loading i { animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    .card-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 16px;
-      border-bottom: 2px solid var(--border);
-    }
-
-    .card-title i {
-      color: var(--primary);
-      font-size: 1.2rem;
-    }
-
-    /* RESUMO */
-    .summary p {
-      color: #334155;
-      margin-bottom: 14px;
-      font-size: 1rem;
-    }
-
-    .summary p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* SKILLS */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .skill-tag {
-      background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
-      color: var(--primary-dark);
-      padding: 10px 18px;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: 1px solid #99f6e4;
-      transition: all 0.3s ease;
-    }
-
-    .skill-tag:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(13, 148, 136, 0.2);
-    }
-
-    /* EXPERIENCE TIMELINE */
-    .timeline {
-      position: relative;
-      padding-left: 32px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 8px;
-      top: 8px;
-      bottom: 8px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--primary), var(--accent));
-      border-radius: 2px;
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 32px;
-    }
-
-    .timeline-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -32px;
-      top: 6px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--white);
-      border: 3px solid var(--primary);
-      box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
-    }
-
-    .timeline-item .job-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 2px;
-    }
-
-    .timeline-item .company {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 4px;
-    }
-
-    .timeline-item .period {
-      font-size: 0.85rem;
-      color: var(--gray);
-      font-weight: 500;
-      margin-bottom: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--light);
-      padding: 4px 12px;
-      border-radius: 50px;
-    }
-
-    .timeline-item ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .timeline-item ul li {
-      color: #475569;
-      font-size: 0.95rem;
-      padding-left: 20px;
-      position: relative;
-      margin-bottom: 8px;
-    }
-
-    .timeline-item ul li::before {
-      content: '▸';
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-weight: bold;
-    }
-
-    /* EDUCAÇÃO E CURSOS */
-    .edu-item {
-      display: flex;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .edu-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .edu-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .edu-item .course {
-      font-weight: 700;
-      color: var(--dark);
-      font-size: 1rem;
-      margin-bottom: 2px;
-    }
-
-    .edu-item .institution {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 2px;
-    }
-
-    .edu-item .institution a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .edu-item .institution a:hover {
-      color: var(--primary-dark);
-      text-decoration: underline;
-    }
-
-    .edu-item .period {
-      color: var(--gray);
-      font-size: 0.85rem;
-    }
-
-    /* LÍNGUAS */
-    .lang-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .lang-item {
-      background: var(--light);
-      padding: 18px;
-      border-radius: 12px;
-      border-left: 4px solid var(--primary);
-    }
-
-    .lang-item .lang-name {
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 4px;
-    }
-
-    .lang-item .lang-level {
-      color: var(--gray);
-      font-size: 0.9rem;
-    }
-
-    /* GRID 2 COLUNAS */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--gray);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--border);
-      background: var(--white);
-    }
-
-    footer .heart {
-      color: #ef4444;
-    }
-
-    /* RESPONSIVE */
+    /* FOOTER E RESPONSIVE (Mantidos) */
+    footer { text-align: center; padding: 40px 20px; color: var(--gray); font-size: 0.9rem; border-top: 1px solid var(--border); background: var(--white); }
+    footer .heart { color: #ef4444; }
     @media (max-width: 768px) {
-      .hero {
-        padding: 60px 20px 80px;
-      }
-
-      .hero-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 24px;
-      }
-
-      .hero-text h1 {
-        font-size: 2rem;
-      }
-
-      .hero-text .role {
-        font-size: 1.1rem;
-      }
-
-      .hero-contacts {
-        justify-content: center;
-      }
-
-      .avatar {
-        width: 130px;
-        height: 130px;
-        font-size: 52px;
-      }
-
-      .card {
-        padding: 24px;
-      }
-
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-
-      .container {
-        margin-top: -40px;
-      }
+      .hero { padding: 60px 20px 80px; }
+      .hero-content { flex-direction: column; text-align: center; gap: 24px; }
+      .hero-text h1 { font-size: 2rem; }
+      .hero-text .role { font-size: 1.1rem; }
+      .hero-contacts { justify-content: center; }
+      .avatar { width: 130px; height: 130px; font-size: 52px; }
+      .card { padding: 24px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .container { margin-top: -40px; }
     }
-
-    @media (max-width: 480px) {
-      .hero-text h1 {
-        font-size: 1.6rem;
-      }
-
-      .card-title {
-        font-size: 1.2rem;
-      }
-    }
+    @media (max-width: 480px) { .hero-text h1 { font-size: 1.6rem; } .card-title { font-size: 1.2rem; } }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
   <header class="hero">
     <div class="hero-content">
       <div class="avatar">BL</div>
       <div class="hero-text">
         <h1>Bruno Labanca de Oliveira</h1>
         <div class="role">Farmacêutico • CRF Ativo</div>
-        <div class="location">
-          <i class="fas fa-map-marker-alt"></i> Cabo Frio, Rio de Janeiro, Brasil
-        </div>
+        <div class="location"><i class="fas fa-map-marker-alt"></i> Cabo Frio, Rio de Janeiro, Brasil</div>
         <div class="hero-contacts">
-          <a href="tel:+5531999368393">
-            <i class="fas fa-phone"></i> (31) 99936-8393
-          </a>
-          <a href="mailto:brunolabanca@yahoo.com.br">
-            <i class="fas fa-envelope"></i> E-mail
-          </a>
-          <a href="https://www.linkedin.com/in/bruno-labanca-de-oliveira-33369a5a" target="_blank">
-            <i class="fab fa-linkedin"></i> LinkedIn
-          </a>
-          <a href="http://brunolabanca.comunidades.net/" target="_blank">
-            <i class="fas fa-globe"></i> Site pessoal
-          </a>
+          <a href="tel:+5531999368393"><i class="fas fa-phone"></i> (31) 99936-8393</a>
+          <a href="mailto:brunolabanca@yahoo.com.br"><i class="fas fa-envelope"></i> E-mail</a>
+          <a href="https://www.linkedin.com/in/bruno-labanca-de-oliveira-33369a5a" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="http://brunolabanca.comunidades.net/" target="_blank"><i class="fas fa-globe"></i> Site pessoal</a>
         </div>
       </div>
     </div>
   </header>
 
   <main class="container">
-
     <!-- RESUMO -->
     <section class="card summary">
       <h2 class="card-title"><i class="fas fa-user-tie"></i> Sobre mim</h2>
-      <p>
-        Farmacêutico com <strong>11 anos de experiência</strong>, profissional ético, comunicativo, resiliente e empático, empenhado em cuidar de perto da saúde e bem-estar das pessoas em todos os momentos da vida. <strong>CRF ativo.</strong>
-      </p>
-      <p>
-        Ampla experiência em <strong>compras, financeiro e fiscal</strong>, buscando sempre o cumprimento da legislação vigente. Sólida experiência em <strong>farmacologia clínica e gerenciamento de medicamentos</strong>.
-      </p>
-      <p>
-        Conhecimento extenso de operações de farmácia, gestão de farmácia e medicamentos. Histórico comprovado de aconselhamento adequado aos clientes e uma atitude empática em relação a eles.
-      </p>
-      <p>
-        Habilidades técnicas e de comunicação excelentes, necessárias para se destacar em ambientes de trabalho de ritmo acelerado.
-      </p>
+      <p>Farmacêutico com <strong>11 anos de experiência</strong>, profissional ético, comunicativo, resiliente e empático, empenhado em cuidar de perto da saúde e bem-estar das pessoas em todos os momentos da vida. <strong>CRF ativo.</strong></p>
+      <p>Ampla experiência em <strong>compras, financeiro e fiscal</strong>, buscando sempre o cumprimento da legislação vigente. Sólida experiência em <strong>farmacologia clínica e gerenciamento de medicamentos</strong>.</p>
     </section>
 
     <!-- COMPETÊNCIAS -->
     <section class="card">
       <h2 class="card-title"><i class="fas fa-star"></i> Principais Competências</h2>
       <div class="skills-grid">
-        <span class="skill-tag">Tutoria</span>
-        <span class="skill-tag">Planejamento de Aulas</span>
-        <span class="skill-tag">Ensino Superior</span>
-        <span class="skill-tag">Farmacologia Clínica</span>
-        <span class="skill-tag">Gerenciamento de Medicamentos</span>
-        <span class="skill-tag">Atenção Farmacêutica</span>
-        <span class="skill-tag">Gestão de Farmácia</span>
-        <span class="skill-tag">Compras</span>
-        <span class="skill-tag">Financeiro</span>
-        <span class="skill-tag">Fiscal</span>
-        <span class="skill-tag">SNGPC</span>
-        <span class="skill-tag">Controle de Estoque</span>
-        <span class="skill-tag">Aplicação de Injetáveis</span>
-        <span class="skill-tag">Atendimento ao Cliente</span>
-        <span class="skill-tag">Liderança de Equipe</span>
-        <span class="skill-tag">Machine Learning</span>
+        <span class="skill-tag">Tutoria</span><span class="skill-tag">Planejamento de Aulas</span><span class="skill-tag">Ensino Superior</span><span class="skill-tag">Farmacologia Clínica</span><span class="skill-tag">Gerenciamento de Medicamentos</span><span class="skill-tag">Atenção Farmacêutica</span><span class="skill-tag">Gestão de Farmácia</span><span class="skill-tag">Compras</span><span class="skill-tag">Financeiro</span><span class="skill-tag">Fiscal</span><span class="skill-tag">SNGPC</span><span class="skill-tag">Controle de Estoque</span><span class="skill-tag">Aplicação de Injetáveis</span><span class="skill-tag">Machine Learning</span>
       </div>
     </section>
 
@@ -530,165 +133,70 @@
     <section class="card">
       <h2 class="card-title"><i class="fas fa-briefcase"></i> Experiência Profissional</h2>
       <div class="timeline">
-
-        <!-- NOVO: ESTÁGIO CURRICULAR SUPERVISIONADO -->
         <div class="timeline-item">
           <div class="job-title">Estagiário - Estágio Curricular Supervisionado</div>
           <div class="company">UniBF / Polo ETEP (Joinville)</div>
           <div class="period"><i class="far fa-calendar"></i> Fev 2025 – Atual (300 horas)</div>
-          <ul>
-            <li>Atuação prática nas áreas de Gestão de Pessoas e Organizações</li>
-            <li>Finanças Corporativas</li>
-            <li>Contabilidade</li>
-            <li>Controladoria</li>
-            <li>Auditoria</li>
-          </ul>
+          <ul><li>Gestão de Pessoas e Organizações</li><li>Finanças Corporativas</li><li>Contabilidade</li><li>Controladoria</li><li>Auditoria</li></ul>
         </div>
-
         <div class="timeline-item">
           <div class="job-title">Farmacêutico</div>
           <div class="company">Droga Raia</div>
-          <div class="period"><i class="far fa-calendar"></i> Jan 2024 – Atual (1 ano 7 meses)</div>
-          <ul>
-            <li>Controle e gerenciamento de pessoal e rotinas da drogaria</li>
-            <li>Conferência de receita médica e orientação ao cliente sobre uso do medicamento</li>
-            <li>Gerenciamento de antibióticos e medicamentos controlados, do recebimento à venda</li>
-            <li>Treinamento da equipe da farmácia</li>
-            <li>Atendimento ao cliente/paciente e atenção farmacêutica</li>
-            <li>Dispensação de medicamentos e lançamentos no SNGPC</li>
-            <li>Acompanhamento e contagem de estoque de medicamentos controlados</li>
-            <li>Organização da sala de aplicação e aplicação de injetáveis</li>
-          </ul>
+          <div class="period"><i class="far fa-calendar"></i> Jan 2024 – Atual</div>
+          <ul><li>Controle e gerenciamento de pessoal e rotinas</li><li>Conferência de receita médica</li><li>Gerenciamento de controlados</li><li>Treinamento de equipe</li><li>Atenção farmacêutica e SNGPC</li></ul>
         </div>
-
         <div class="timeline-item">
           <div class="job-title">Farmacêutico</div>
           <div class="company">Drogaria Bruno LTDA ME</div>
-          <div class="period"><i class="far fa-calendar"></i> Jul 2014 – Jan 2024 (9 anos 7 meses)</div>
-          <ul>
-            <li>Controle e gerenciamento de pessoal e rotinas da drogaria</li>
-            <li>Conferência de receita médica e orientação ao cliente sobre uso do medicamento</li>
-            <li>Gerenciamento de antibióticos e medicamentos controlados, do recebimento à venda</li>
-            <li>Treinamento da equipe da farmácia</li>
-            <li>Atendimento ao cliente/paciente e atenção farmacêutica</li>
-            <li>Dispensação de medicamentos e lançamentos no SNGPC</li>
-            <li>Acompanhamento e contagem de estoque de medicamentos controlados</li>
-            <li>Organização da sala de aplicação e aplicação de injetáveis</li>
-          </ul>
+          <div class="period"><i class="far fa-calendar"></i> Jul 2014 – Jan 2024</div>
+          <ul><li>Gestão de drogaria</li><li>Dispensação de medicamentos</li><li>Controle de estoque</li><li>Aplicação de injetáveis</li></ul>
         </div>
-
         <div class="timeline-item">
           <div class="job-title">Estagiário</div>
           <div class="company">Laboratório Globo</div>
-          <div class="period"><i class="far fa-calendar"></i> Jan 2012 – Nov 2012 (11 meses)</div>
-          <ul>
-            <li>Atuação no setor de Garantia da Qualidade</li>
-          </ul>
+          <div class="period"><i class="far fa-calendar"></i> Jan 2012 – Nov 2012</div>
+          <ul><li>Garantia da Qualidade</li></ul>
         </div>
-
-        <div class="timeline-item">
-          <div class="job-title">Estagiário</div>
-          <div class="company">Drogaria Araujo S/A</div>
-          <div class="period"><i class="far fa-calendar"></i> Jun 2011 – Dez 2011 (7 meses)</div>
-        </div>
-
       </div>
     </section>
 
     <!-- GRID: FORMAÇÃO + LÍNGUAS -->
     <div class="grid-2">
-
       <section class="card">
         <h2 class="card-title"><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h2>
-
-        <div class="edu-item">
-          <div class="edu-icon"><i class="fas fa-pills"></i></div>
-          <div>
-            <div class="course">Farmácia</div>
-            <div class="institution">UNIFENAS</div>
-            <div class="period">2003 – 2012</div>
-          </div>
-        </div>
-
-        <!-- ALTERE AQUI: Informações do OGRMA -->
-        <div class="edu-item">
-          <div class="edu-icon"><i class="fas fa-chart-line"></i></div>
-          <div>
-            <div class="course">OGRMA</div> 
-            <div class="institution">Nome da Instituição</div>
-            <div class="period">Mês Ano – Mês Ano</div>
-          </div>
-        </div>
-        <!-- FIM DA ALTERAÇÃO DO OGRMA -->
-
-        <div class="edu-item">
-          <div class="edu-icon"><i class="fas fa-calculator"></i></div>
-          <div>
-            <div class="course">Contabilidade</div>
-            <div class="institution">Faculdade UniBF</div>
-            <div class="period">Mar 2022 – Dez 2025</div>
-          </div>
-        </div>
+        <div class="edu-item"><div class="edu-icon"><i class="fas fa-pills"></i></div><div><div class="course">Farmácia</div><div class="institution">UNIFENAS</div><div class="period">2003 – 2012</div></div></div>
+        <div class="edu-item"><div class="edu-icon"><i class="fas fa-chart-line"></i></div><div><div class="course">OGRMA</div><div class="institution">Nome da Instituição</div><div class="period">Mês Ano – Mês Ano</div></div></div>
+        <div class="edu-item"><div class="edu-icon"><i class="fas fa-calculator"></i></div><div><div class="course">Contabilidade</div><div class="institution">Faculdade UniBF</div><div class="period">Mar 2022 – Dez 2025</div></div></div>
       </section>
-
       <section class="card">
         <h2 class="card-title"><i class="fas fa-language"></i> Idiomas</h2>
         <div class="lang-grid">
-          <div class="lang-item">
-            <div class="lang-name">Português</div>
-            <div class="lang-level">Nativo / Bilíngue</div>
-          </div>
-          <div class="lang-item">
-            <div class="lang-name">Inglês</div>
-            <div class="lang-level">Intermediário (Professional Working)</div>
-          </div>
+          <div class="lang-item"><div class="lang-name">Português</div><div class="lang-level">Nativo / Bilíngue</div></div>
+          <div class="lang-item"><div class="lang-name">Inglês</div><div class="lang-level">Intermediário</div></div>
         </div>
       </section>
-
     </div>
 
-    <!-- SEÇÃO DE CURSOS DE EXTENSÃO -->
+    <!-- CURSOS DE EXTENSÃO -->
     <section class="card">
       <h2 class="card-title"><i class="fas fa-certificate"></i> Cursos de Extensão e Certificações</h2>
-      
-      <div class="edu-item">
-        <div class="edu-icon"><i class="fas fa-recycle"></i></div>
-        <div>
-          <div class="course">Gerenciamento de Resíduos</div>
-          <div class="institution">IFRS - Instituto Federal do Rio Grande do Sul (Plataforma Aprenda+)</div>
-          <div class="period">Nov 2024 – Dez 2024 • 60 horas</div>
-        </div>
-      </div>
-
-      <!-- NOVO: CERTIFICADO DE MACHINE LEARNING -->
-      <div class="edu-item">
-        <div class="edu-icon"><i class="fas fa-brain"></i></div>
-        <div>
-          <div class="course">Introdução ao Machine Learning</div>
-          <div class="institution">BairesDev / DIO</div>
-          <div class="period">Ago 2026 • 1 hora</div>
-        </div>
-      </div>
-      
+      <div class="edu-item"><div class="edu-icon"><i class="fas fa-recycle"></i></div><div><div class="course">Gerenciamento de Resíduos</div><div class="institution">IFRS (Plataforma Aprenda+)</div><div class="period">Nov 2024 – Dez 2024 • 60 horas</div></div></div>
+      <div class="edu-item"><div class="edu-icon"><i class="fas fa-brain"></i></div><div><div class="course">Introdução ao Machine Learning</div><div class="institution">BairesDev / DIO</div><div class="period">Ago 2026 • 1 hora</div></div></div>
     </section>
 
-    <!-- SEÇÃO DE PROJETOS -->
+    <!-- PROJETOS -->
     <section class="card">
       <h2 class="card-title"><i class="fas fa-laptop-code"></i> Projetos</h2>
+      <div class="edu-item"><div class="edu-icon"><i class="fas fa-link"></i></div><div><div class="course">Nome do seu Projeto</div><div class="institution"><a href="#" target="_blank">Acessar Projeto <i class="fas fa-external-link-alt"></i></a></div><div class="period">Breve descrição do projeto</div></div></div>
+    </section>
 
-      <!-- ALTERE AQUI: Nome do Projeto e Link -->
-      <div class="edu-item">
-        <div class="edu-icon"><i class="fas fa-link"></i></div>
-        <div>
-          <div class="course">Nome do seu Projeto</div>
-          <div class="institution">
-            <a href="COLE_O_LINK_DO_SEU_PROJETO_AQUI" target="_blank">Acessar Projeto <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i></a>
-          </div>
-          <div class="period">Breve descrição do projeto</div>
-        </div>
+    <!-- NOVO: VAGAS DE ESTÁGIO (INTEGRAÇÃO JS) -->
+    <section class="card">
+      <h2 class="card-title"><i class="fas fa-search"></i> Vagas de Estágio (Contabilidade / Remoto)</h2>
+      <div id="vagas-container" class="vagas-container">
+        <!-- O JavaScript vai preencher aqui -->
+        <div class="loading"><i class="fas fa-spinner"></i> Carregando vagas...</div>
       </div>
-      <!-- FIM DA ALTERAÇÃO DO PROJETO -->
-
     </section>
 
   </main>
@@ -697,5 +205,112 @@
     <p>© 2024 Bruno Labanca de Oliveira — Feito com <span class="heart">♥</span></p>
   </footer>
 
+  <!-- SCRIPT DE INTEGRAÇÃO -->
+  <script>
+    // ==========================================
+    // CONFIGURAÇÃO DA API
+    // ==========================================
+    // ATENÇÃO: NUNCA coloque sua API Key real aqui em produção. 
+    // Use um backend ou GitHub Actions para proteger a chave.
+    const API_KEY = "SUA_API_KEY_AQUI"; 
+    const API_URL = "https://api.intelligence.adzuna.com/v1.1/jobs/search"; // Verifique o endpoint correto com seu gerente
+
+    // Função para buscar vagas (Descomente quando tiver a API Key e um proxy/backend)
+    /*
+    async function buscarVagasAPI() {
+      try {
+        const response = await fetch(`${API_URL}?what=estagio+contabilidade+remoto&where=br`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Api-Key ${API_KEY}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!response.ok) throw new Error('Erro na requisição');
+        const data = await response.json();
+        return data.results || [];
+      } catch (error) {
+        console.error("Erro ao buscar vagas:", error);
+        return [];
+      }
+    }
+    */
+
+    // ==========================================
+    // MOCK DE DADOS (Para testar o visual agora)
+    // ==========================================
+    const vagasMock = [
+      {
+        title: "Estágio em Contabilidade - Remoto",
+        company: { display_name: "Empresa Exemplo 1" },
+        location: { display_name: "Brasil (Remoto)" },
+        description: "Vaga para estágio em contabilidade, atuação remota. Necessário conhecimento em Excel e rotinas fiscais.",
+        redirect_url: "#"
+      },
+      {
+        title: "Estágio em Controladoria (Home Office)",
+        company: { display_name: "Empresa Exemplo 2" },
+        location: { display_name: "SÃO PAULO, SP (Remoto)" },
+        description: "Buscamos estagiário de contabilidade para auxiliar na conciliação e relatórios gerenciais.",
+        redirect_url: "#"
+      },
+      {
+        title: "Estágio em Auditoria - Remoto",
+        company: { display_name: "Empresa Exemplo 3" },
+        location: { display_name: "Rio de Janeiro, RJ (Remoto)" },
+        description: "Oportunidade para estudantes de contabilidade com foco em auditoria e compliance.",
+        redirect_url: "#"
+      }
+    ];
+
+    // ==========================================
+    // RENDERIZAÇÃO
+    // ==========================================
+    function renderizarVagas(vagas) {
+      const container = document.getElementById('vagas-container');
+      container.innerHTML = ''; // Limpa o loading
+
+      if (vagas.length === 0) {
+        container.innerHTML = '<div class="loading">Nenhuma vaga encontrada no momento.</div>';
+        return;
+      }
+
+      vagas.forEach(vaga => {
+        const card = document.createElement('div');
+        card.className = 'vaga-card';
+        
+        // Tratando a estrutura do JSON (ajuste conforme o retorno real da API)
+        const titulo = vaga.title || "Vaga sem título";
+        const empresa = vaga.company?.display_name || "Empresa não informada";
+        const local = vaga.location?.display_name || "Local não informado";
+        const descricao = vaga.description ? vaga.description.substring(0, 150) + "..." : "Sem descrição.";
+        const link = vaga.redirect_url || "#";
+
+        card.innerHTML = `
+          <h3>${titulo}</h3>
+          <div class="empresa"><i class="fas fa-building"></i> ${empresa}</div>
+          <div class="local"><i class="fas fa-map-marker-alt"></i> ${local}</div>
+          <div class="descricao">${descricao}</div>
+          <a href="${link}" target="_blank" class="btn-link">Ver Vaga Completa <i class="fas fa-external-link-alt"></i></a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // ==========================================
+    // INICIALIZAÇÃO
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Para usar dados reais, descomente a linha abaixo e comente a linha do Mock
+      // const vagas = await buscarVagasAPI();
+      
+      const vagas = vagasMock; // Usando dados de teste
+      
+      // Simula um pequeno atraso para ver o loading
+      setTimeout(() => {
+        renderizarVagas(vagas);
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
