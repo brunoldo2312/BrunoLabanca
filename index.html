@@ -33,7 +33,7 @@
     .card { background: var(--white); border-radius: 16px; padding: 36px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06); border: 1px solid var(--border); }
     .card-title { font-size: 1.4rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
     .card-title i { color: var(--primary); font-size: 1.2rem; }
-    /* RESUMO, SKILLS, TIMELINE, EDUCAÇÃO (Mantidos do seu código original) */
+    /* RESUMO, SKILLS, TIMELINE, EDUCAÇÃO */
     .summary p { color: #334155; margin-bottom: 14px; font-size: 1rem; }
     .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill-tag { background: linear-gradient(135deg, #f0fdfa, #ccfbf1); color: var(--primary-dark); padding: 10px 18px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; border: 1px solid #99f6e4; transition: all 0.3s ease; }
@@ -62,8 +62,7 @@
     .lang-item .lang-name { font-weight: 700; color: var(--dark); margin-bottom: 4px; }
     .lang-item .lang-level { color: var(--gray); font-size: 0.9rem; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    
-    /* NOVO: ESTILOS PARA VAGAS */
+    /* VAGAS */
     .vagas-container { display: flex; flex-direction: column; gap: 16px; }
     .vaga-card { background: var(--light); padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary); display: flex; flex-direction: column; gap: 8px; transition: transform 0.2s; }
     .vaga-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
@@ -76,8 +75,7 @@
     .loading { text-align: center; padding: 20px; color: var(--gray); }
     .loading i { animation: spin 1s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    /* FOOTER E RESPONSIVE (Mantidos) */
+    /* FOOTER E RESPONSIVE */
     footer { text-align: center; padding: 40px 20px; color: var(--gray); font-size: 0.9rem; border-top: 1px solid var(--border); background: var(--white); }
     footer .heart { color: #ef4444; }
     @media (max-width: 768px) {
@@ -165,6 +163,7 @@
       <section class="card">
         <h2 class="card-title"><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h2>
         <div class="edu-item"><div class="edu-icon"><i class="fas fa-pills"></i></div><div><div class="course">Farmácia</div><div class="institution">UNIFENAS</div><div class="period">2003 – 2012</div></div></div>
+        <!-- ALTERE AQUI: Informações do OGRMA -->
         <div class="edu-item"><div class="edu-icon"><i class="fas fa-chart-line"></i></div><div><div class="course">OGRMA</div><div class="institution">Nome da Instituição</div><div class="period">Mês Ano – Mês Ano</div></div></div>
         <div class="edu-item"><div class="edu-icon"><i class="fas fa-calculator"></i></div><div><div class="course">Contabilidade</div><div class="institution">Faculdade UniBF</div><div class="period">Mar 2022 – Dez 2025</div></div></div>
       </section>
@@ -187,14 +186,14 @@
     <!-- PROJETOS -->
     <section class="card">
       <h2 class="card-title"><i class="fas fa-laptop-code"></i> Projetos</h2>
-      <div class="edu-item"><div class="edu-icon"><i class="fas fa-link"></i></div><div><div class="course">Nome do seu Projeto</div><div class="institution"><a href="#" target="_blank">Acessar Projeto <i class="fas fa-external-link-alt"></i></a></div><div class="period">Breve descrição do projeto</div></div></div>
+      <!-- ALTERE AQUI: Nome do Projeto e Link -->
+      <div class="edu-item"><div class="edu-icon"><i class="fas fa-link"></i></div><div><div class="course">Nome do seu Projeto</div><div class="institution"><a href="COLE_O_LINK_DO_SEU_PROJETO_AQUI" target="_blank">Acessar Projeto <i class="fas fa-external-link-alt"></i></a></div><div class="period">Breve descrição do projeto</div></div></div>
     </section>
 
-    <!-- NOVO: VAGAS DE ESTÁGIO (INTEGRAÇÃO JS) -->
+    <!-- VAGAS DE ESTÁGIO -->
     <section class="card">
       <h2 class="card-title"><i class="fas fa-search"></i> Vagas de Estágio (Contabilidade / Remoto)</h2>
       <div id="vagas-container" class="vagas-container">
-        <!-- O JavaScript vai preencher aqui -->
         <div class="loading"><i class="fas fa-spinner"></i> Carregando vagas...</div>
       </div>
     </section>
@@ -205,112 +204,7 @@
     <p>© 2024 Bruno Labanca de Oliveira — Feito com <span class="heart">♥</span></p>
   </footer>
 
-  <!-- SCRIPT DE INTEGRAÇÃO -->
-  <script>
-    // ==========================================
-    // CONFIGURAÇÃO DA API
-    // ==========================================
-    // ATENÇÃO: NUNCA coloque sua API Key real aqui em produção. 
-    // Use um backend ou GitHub Actions para proteger a chave.
-    const API_KEY = "SUA_API_KEY_AQUI"; 
-    const API_URL = "https://api.intelligence.adzuna.com/v1.1/jobs/search"; // Verifique o endpoint correto com seu gerente
-
-    // Função para buscar vagas (Descomente quando tiver a API Key e um proxy/backend)
-    /*
-    async function buscarVagasAPI() {
-      try {
-        const response = await fetch(`${API_URL}?what=estagio+contabilidade+remoto&where=br`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Api-Key ${API_KEY}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        if (!response.ok) throw new Error('Erro na requisição');
-        const data = await response.json();
-        return data.results || [];
-      } catch (error) {
-        console.error("Erro ao buscar vagas:", error);
-        return [];
-      }
-    }
-    */
-
-    // ==========================================
-    // MOCK DE DADOS (Para testar o visual agora)
-    // ==========================================
-    const vagasMock = [
-      {
-        title: "Estágio em Contabilidade - Remoto",
-        company: { display_name: "Empresa Exemplo 1" },
-        location: { display_name: "Brasil (Remoto)" },
-        description: "Vaga para estágio em contabilidade, atuação remota. Necessário conhecimento em Excel e rotinas fiscais.",
-        redirect_url: "#"
-      },
-      {
-        title: "Estágio em Controladoria (Home Office)",
-        company: { display_name: "Empresa Exemplo 2" },
-        location: { display_name: "SÃO PAULO, SP (Remoto)" },
-        description: "Buscamos estagiário de contabilidade para auxiliar na conciliação e relatórios gerenciais.",
-        redirect_url: "#"
-      },
-      {
-        title: "Estágio em Auditoria - Remoto",
-        company: { display_name: "Empresa Exemplo 3" },
-        location: { display_name: "Rio de Janeiro, RJ (Remoto)" },
-        description: "Oportunidade para estudantes de contabilidade com foco em auditoria e compliance.",
-        redirect_url: "#"
-      }
-    ];
-
-    // ==========================================
-    // RENDERIZAÇÃO
-    // ==========================================
-    function renderizarVagas(vagas) {
-      const container = document.getElementById('vagas-container');
-      container.innerHTML = ''; // Limpa o loading
-
-      if (vagas.length === 0) {
-        container.innerHTML = '<div class="loading">Nenhuma vaga encontrada no momento.</div>';
-        return;
-      }
-
-      vagas.forEach(vaga => {
-        const card = document.createElement('div');
-        card.className = 'vaga-card';
-        
-        // Tratando a estrutura do JSON (ajuste conforme o retorno real da API)
-        const titulo = vaga.title || "Vaga sem título";
-        const empresa = vaga.company?.display_name || "Empresa não informada";
-        const local = vaga.location?.display_name || "Local não informado";
-        const descricao = vaga.description ? vaga.description.substring(0, 150) + "..." : "Sem descrição.";
-        const link = vaga.redirect_url || "#";
-
-        card.innerHTML = `
-          <h3>${titulo}</h3>
-          <div class="empresa"><i class="fas fa-building"></i> ${empresa}</div>
-          <div class="local"><i class="fas fa-map-marker-alt"></i> ${local}</div>
-          <div class="descricao">${descricao}</div>
-          <a href="${link}" target="_blank" class="btn-link">Ver Vaga Completa <i class="fas fa-external-link-alt"></i></a>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    // ==========================================
-    // INICIALIZAÇÃO
-    // ==========================================
-    document.addEventListener('DOMContentLoaded', async () => {
-      // Para usar dados reais, descomente a linha abaixo e comente a linha do Mock
-      // const vagas = await buscarVagasAPI();
-      
-      const vagas = vagasMock; // Usando dados de teste
-      
-      // Simula um pequeno atraso para ver o loading
-      setTimeout(() => {
-        renderizarVagas(vagas);
-      }, 1000);
-    });
-  </script>
+  <!-- CHAMADA DO SCRIPT EXTERNO -->
+  <script src="script.js"></script>
 </body>
 </html>
