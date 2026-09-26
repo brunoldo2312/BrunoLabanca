@@ -1,63 +1,180 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  const container = document.getElementById('vagas-container');
-  if (!container) return;
+// ============================================================
+// SCRIPT.JS — Bruno Labanca de Oliveira
+// Versão atualizada com todas as funcionalidades
+// ============================================================
 
-  try {
-    const response = await fetch('./vagas.json');
-    if (!response.ok) throw new Error('Arquivo JSON não encontrado');
-    const vagas = await response.json();
-    renderizarVagas(vagas);
-  } catch (error) {
-    console.warn("Usando dados de teste.");
-    const vagasMock = [
-      {
-        title: "Estágio em Contabilidade - Remoto",
-        company: "Empresa Exemplo",
-        location: "Brasil (Remoto)",
-        description: "Dado de teste.",
-        redirect_url: "#",
-        score: 10
-      }
-    ];
-    renderizarVagas(vagasMock);
+// ==================== TEMA ESCURO/CLARO ====================
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const body = document.body;
+
+// Verifica tema salvo
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  body.classList.add('dark-mode');
+  themeIcon.classList.remove('fa-moon');
+  themeIcon.classList.add('fa-sun');
+}
+
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+  const isDark = body.classList.contains('dark-mode');
+  
+  if (isDark) {
+    localStorage.setItem('theme', 'dark');
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+  } else {
+    localStorage.setItem('theme', 'light');
+    themeIcon.classList.remove('fa-sun');
+    themeIcon.classList.add('fa-moon');
   }
 });
 
-function renderizarVagas(vagas) {
-  const container = document.getElementById('vagas-container');
-  container.innerHTML = ''; 
+// ==================== ANIMAÇÃO DE SCROLL ====================
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -30px 0px'
+};
 
-  if (vagas.length === 0) {
-    container.innerHTML = '<div class="loading">Nenhuma vaga compatível encontrada no momento.</div>';
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.fade-in').forEach(el => {
+  observer.observe(el);
+});
+
+// ==================== CONTADOR DE VISITAS ====================
+function updateVisitCounter() {
+  let visits = parseInt(localStorage.getItem('visits') || '0');
+  visits++;
+  localStorage.setItem('visits', visits.toString());
+  document.getElementById('visitCount').textContent = visits;
+}
+updateVisitCounter();
+
+// ==================== DOWNLOAD DO CURRÍCULO ====================
+document.getElementById('downloadCV').addEventListener('click', (e) => {
+  e.preventDefault();
+  alert('📄 Função de download: Substitua este link pelo seu arquivo PDF!\n\nColoque seu currículo.pdf na mesma pasta e atualize o código.');
+  // Exemplo de código quando tiver o arquivo:
+  // const link = document.createElement('a');
+  // link.href = 'curriculo-bruno-labanca.pdf';
+  // link.download = 'curriculo-bruno-labanca.pdf';
+  // link.click();
+});
+
+// ==================== SISTEMA DE VAGAS ====================
+const vagas = [
+  {
+    id: 1,
+    titulo: 'Estagiário de Contabilidade',
+    empresa: 'Escritório de Contabilidade',
+    local: 'Remoto',
+    tipo: 'remoto',
+    descricao: 'Auxiliar em lançamentos contábeis, conciliação bancária e atendimento a clientes. Horário flexível.',
+    link: '#'
+  },
+  {
+    id: 2,
+    titulo: 'Auxiliar de Contabilidade',
+    empresa: 'Empresa de Serviços LTDA',
+    local: 'Rio de Janeiro - RJ',
+    tipo: 'presencial',
+    descricao: 'Suporte ao setor fiscal e financeiro, organização de documentos e lançamentos em sistema.',
+    link: '#'
+  },
+  {
+    id: 3,
+    titulo: 'Estagiário Financeiro',
+    empresa: 'Consultoria Financeira',
+    local: 'Cabo Frio - RJ',
+    tipo: 'hibrido',
+    descricao: 'Apoio em contas a pagar e receber, fluxo de caixa e relatórios financeiros.',
+    link: '#'
+  },
+  {
+    id: 4,
+    titulo: 'Assistente Administrativo/Contábil',
+    empresa: 'Comércio Local',
+    local: 'Cabo Frio - RJ',
+    tipo: 'presencial',
+    descricao: 'Organização de documentos, lançamentos básicos e atendimento ao público.',
+    link: '#'
+  }
+];
+
+const container = document.getElementById('vagas-container');
+const botoesFiltro = document.querySelectorAll('.filtro-btn');
+
+// Renderiza vagas
+function renderizarVagas(filtro = 'todas') {
+  const vagasFiltradas = filtro === 'todas' 
+    ? vagas 
+    : vagas.filter(v => v.tipo === filtro);
+  
+  if (vagasFiltradas.length === 0) {
+    container.innerHTML = `
+      <div style="padding: 30px; text-align: center; color: var(--gray);">
+        <i class="fas fa-search" style="font-size: 1.5rem; margin-bottom: 10px;"></i>
+        <p>Nenhuma vaga encontrada para este filtro.</p>
+      </div>
+    `;
     return;
   }
-
-  vagas.forEach(vaga => {
-    const card = document.createElement('div');
-    card.className = 'vaga-card';
-    
-    const titulo = vaga.title || "Vaga sem título";
-    const empresa = vaga.company || "Empresa não informada";
-    const local = vaga.location || "Local não informado";
-    const descricao = vaga.description ? vaga.description.substring(0, 150) + "..." : "Sem descrição.";
-    const link = vaga.redirect_url || "#";
-    const score = vaga.score || 0;
-
-    // Define a cor e o texto da etiqueta com base no score
-    let badgeHtml = '';
-    if (score >= 10) {
-      badgeHtml = `<span style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-left: 10px;">🌟 Alta Compatibilidade</span>`;
-    } else if (score >= 6) {
-      badgeHtml = `<span style="background: #3b82f6; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-left: 10px;">👍 Boa Compatibilidade</span>`;
-    }
-
-    card.innerHTML = `
-      <h3>${titulo} ${badgeHtml}</h3>
-      <div class="empresa"><i class="fas fa-building"></i> ${empresa}</div>
-      <div class="local"><i class="fas fa-map-marker-alt"></i> ${local}</div>
-      <div class="descricao">${descricao}</div>
-      <a href="${link}" target="_blank" class="btn-link">Ver Vaga Completa <i class="fas fa-external-link-alt"></i></a>
-    `;
-    container.appendChild(card);
-  });
+  
+  container.innerHTML = vagasFiltradas.map(vaga => `
+    <div class="vaga-card" data-tipo="${vaga.tipo}">
+      <h3>${escapeHtml(vaga.titulo)}</h3>
+      <span class="empresa"><i class="fas fa-building"></i> ${escapeHtml(vaga.empresa)}</span>
+      <span class="local"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(vaga.local)}</span>
+      <span class="tipo-vaga">${formatarTipoVaga(vaga.tipo)}</span>
+      <p class="descricao">${escapeHtml(vaga.descricao)}</p>
+      <a href="${escapeHtml(vaga.link)}" target="_blank" class="btn-link">
+        <i class="fas fa-paper-plane"></i> Candidatar-se
+      </a>
+    </div>
+  `).join('');
 }
+
+function formatarTipoVaga(tipo) {
+  const tipos = {
+    remoto: '🌐 Remoto',
+    presencial: '🏢 Presencial',
+    hibrido: '🔄 Híbrido'
+  };
+  return tipos[tipo] || tipo;
+}
+
+function escapeHtml(texto) {
+  const div = document.createElement('div');
+  div.textContent = texto;
+  return div.innerHTML;
+}
+
+// Eventos dos filtros
+botoesFiltro.forEach(botao => {
+  botao.addEventListener('click', () => {
+    // Ativa botão clicado
+    botoesFiltro.forEach(b => b.classList.remove('active'));
+    botao.classList.add('active');
+    
+    // Filtra vagas
+    const filtro = botao.getAttribute('data-filtro');
+    renderizarVagas(filtro);
+  });
+});
+
+// Inicializa com todas as vagas
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    renderizarVagas('todas');
+  }, 800); // Simula carregamento
+});
+
+console.log('✅ Portfólio carregado com sucesso!');
