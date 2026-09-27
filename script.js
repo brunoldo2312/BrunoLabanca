@@ -1,245 +1,218 @@
-// ============================================================
-// SCRIPT.JS — Bruno Labanca de Oliveira
-// VERSÃO COM MÚLTIPLAS FONTES DE VAGAS
-// ============================================================
+/* =========================================================
+   Portfólio Bruno Labanca — script.js
+   - Tema claro/escuro com persistência
+   - Lista de plataformas de vagas (renderizada via JS)
+   - Carregamento de vagas (Adzuna API ou exemplos)
+   ========================================================= */
 
-// ==================== CONFIGURAÇÃO DA API ADZUNA ====================
-// 👉 Cadastre-se GRATUITAMENTE em: https://developer.adzuna.com/
-const ADZUNA_APP_ID = "";   // ← Seu App ID aqui
-const ADZUNA_APP_KEY = "";  // ← Sua Chave aqui
-const PAIS = "br";
+/* ---------- CONFIGURAÇÃO ADZUNA ---------- */
+// Cadastre-se grátis em https://developer.adzuna.com/
+// e cole aqui seu App ID e App Key (100 buscas/dia grátis)
+const ADZUNA_APP_ID  = ''; // <-- cole aqui
+const ADZUNA_APP_KEY = ''; // <-- cole aqui
+const ADZUNA_COUNTRY = 'br';
+const ADZUNA_QUERY   = 'estágio contabilidade';
+const ADZUNA_LIMIT   = 12;
 
-// ==================== OUTRAS PLATAFORMAS DE VAGAS ====================
+/* ---------- PLATAFORMAS DE VAGAS ---------- */
 const PLATAFORMAS = [
-  { 
-    nome: "Vagas.com.br", 
-    url: "https://www.vagas.com.br/vagas-de-estagiario-contabilidade",
+  {
+    nome: "Vagas.com.br",
+    url: "https://www.vagas.com.br/vagas-de-estagio-em-contabilidade",
     icone: "fas fa-briefcase",
-    descricao: "Milhares de vagas em todo o Brasil"
+    descricao: "Maior portal de estágios do Brasil"
   },
-  { 
-    nome: "Catho", 
+  {
+    nome: "Catho",
     url: "https://www.catho.com.br/vagas/estagiario-contabilidade/",
     icone: "fas fa-building",
-    descricao "Encontre sua vaga mais próxima"
+    descricao: "Encontre sua vaga mais próxima"
   },
-  { 
-    nome: "LinkedIn", 
-    url: "https://www.linkedin.com/jobs/search/?keywords=estagiário%20contabilidade&location=Brasil",
+  {
+    nome: "LinkedIn Jobs",
+    url: "https://www.linkedin.com/jobs/search/?keywords=est%C3%A1gio%20contabilidade",
     icone: "fab fa-linkedin",
-    descricao: "Rede profissional — conecte diretamente"
+    descricao: "Networking e vagas corporativas"
   },
-  { 
-    nome: "Trabalha Brasil", 
-    url: "https://www.trabalhabrasil.com.br/vagas?q=estagiário+contabilidade",
-    icone: "fas fa-map-marker-alt",
-    descricao: "Vagas por todo o território nacional"
+  {
+    nome: "Trabalha Brasil",
+    url: "https://www.trabalhabrasil.com.br/vagas-empregos-em-cabo-frio-rj/estagio",
+    icone: "fas fa-hard-hat",
+    descricao: "Vagas por cidade e região"
   },
-  { 
-    nome: "Glassdoor", 
-    url: "https://www.glassdoor.com.br/Encontrar-emprego.htm?sc.keyword=estagiário contabilidade",
-    icone: "fas fa-chart-bar",
+  {
+    nome: "Glassdoor",
+    url: "https://www.glassdoor.com.br/Vaga/est%C3%A1gio-contabilidade-vagas-SRCH_KO0,24.htm",
+    icone: "fas fa-chart-line",
     descricao: "Salários e avaliações de empresas"
+  },
+  {
+    nome: "Indeed",
+    url: "https://br.indeed.com/jobs?q=est%C3%A1gio+contabilidade",
+    icone: "fas fa-search",
+    descricao: "Buscador global de empregos"
+  },
+  {
+    nome: "Gupy",
+    url: "https://portal.gupy.io/job-search/term=est%C3%A1gio%20contabilidade",
+    icone: "fas fa-rocket",
+    descricao: "Plataforma usada por grandes empresas"
+  },
+  {
+    nome: "CIEE",
+    url: "https://www.ciee.org.br/vagas",
+    icone: "fas fa-graduation-cap",
+    descricao: "Especializado em estágios e aprendizes"
   }
 ];
 
-// Vagas de exemplo (aparece se a API não estiver configurada)
-const vagasExemplo = [
+/* ---------- VAGAS DE EXEMPLO ---------- */
+const VAGAS_EXEMPLO = [
   {
-    titulo: 'Estagiário de Contabilidade',
-    empresa: 'Grupo Contábil Brasil',
-    local: 'Rio de Janeiro - RJ',
-    descricao: 'Auxiliar em lançamentos contábeis, conciliação bancária e arquivamento de documentos. Ensino superior em andamento em Ciências Contábeis.',
-    tipo: 'contabilidade',
-    link: 'https://www.vagas.com.br'
+    title: 'Estágio em Contabilidade',
+    company: { display_name: 'Grupo Contábil ABC' },
+    location: { display_name: 'Rio de Janeiro, RJ' },
+    redirect_url: 'https://www.vagas.com.br',
   },
   {
-    titulo: 'Estagiário Financeiro',
-    empresa: 'Empresa de Serviços LTDA',
-    local: 'Cabo Frio - RJ',
-    descricao: 'Apoio em contas a pagar e receber, fluxo de caixa e relatórios financeiros. Conhecimento básico de Excel.',
-    tipo: 'financeiro',
-    link: 'https://www.vagas.com.br'
+    title: 'Estágio em Departamento Fiscal',
+    company: { display_name: 'Escritório Fiscal XYZ' },
+    location: { display_name: 'Cabo Frio, RJ' },
+    redirect_url: 'https://www.catho.com.br',
   },
   {
-    titulo: 'Auxiliar Administrativo/Contábil',
-    empresa: 'Comércio Local',
-    local: 'Araruama - RJ',
-    descricao: 'Organização de documentos, atendimento ao cliente e suporte ao setor contábil. Horário flexível.',
-    tipo: 'administrativo',
-    link: 'https://www.vagas.com.br'
-  }
+    title: 'Estágio em Controladoria',
+    company: { display_name: 'Indústria Nacional' },
+    location: { display_name: 'Remoto' },
+    redirect_url: 'https://www.linkedin.com/jobs',
+  },
+  {
+    title: 'Estágio em Auditoria',
+    company: { display_name: 'Auditoria Prime' },
+    location: { display_name: 'Niterói, RJ' },
+    redirect_url: 'https://www.glassdoor.com.br',
+  },
 ];
 
-// ==================== TEMA ESCURO/CLARO ====================
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-const body = document.body;
+/* ---------- TEMA CLARO / ESCURO ---------- */
+const btnTema = document.getElementById('theme-toggle');
+const iconeTema = btnTema ? btnTema.querySelector('i') : null;
 
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-  body.classList.add('dark-mode');
-  themeIcon.classList.remove('fa-moon');
-  themeIcon.classList.add('fa-sun');
+function aplicarTema(tema) {
+  document.body.classList.toggle('dark', tema === 'dark');
+  if (iconeTema) {
+    iconeTema.className = tema === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+  }
 }
 
-themeToggle.addEventListener('click', () => {
-  body.classList.toggle('dark-mode');
-  const isDark = body.classList.contains('dark-mode');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  themeIcon.classList.toggle('fa-moon', !isDark);
-  themeIcon.classList.toggle('fa-sun', isDark);
-});
+function iniciarTema() {
+  const salvo = localStorage.getItem('tema') || 'light';
+  aplicarTema(salvo);
 
-// ==================== ANIMAÇÃO DE SCROLL ====================
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.1 });
+  if (btnTema) {
+    btnTema.addEventListener('click', () => {
+      const novo = document.body.classList.contains('dark') ? 'light' : 'dark';
+      localStorage.setItem('tema', novo);
+      aplicarTema(novo);
+    });
+  }
+}
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+/* ---------- UTILITÁRIO: ESCAPAR HTML ---------- */
+function escapar(txt) {
+  const d = document.createElement('div');
+  d.textContent = txt ?? '';
+  return d.innerHTML;
+}
 
-// ==================== CONTADOR DE VISITAS ====================
-const visits = parseInt(localStorage.getItem('visits') || '0') + 1;
-localStorage.setItem('visits', visits.toString());
-document.getElementById('visitCount').textContent = visits;
+/* ---------- RENDERIZAR PLATAFORMAS ---------- */
+function renderizarPlataformas() {
+  const container = document.querySelector('.plataformas');
+  if (!container) return;
 
-// ==================== DOWNLOAD DO CURRÍCULO ====================
-document.getElementById('downloadCV').addEventListener('click', (e) => {
-  e.preventDefault();
-  alert('📄 Coloque seu currículo.pdf na mesma pasta e atualize o link no código!');
-});
-
-// ==================== BUSCAR VAGAS REAIS — API ADZUNA ====================
-const container = document.getElementById('vagas-container');
-const plataformasContainer = document.getElementById('plataformas-container');
-const dataAtualizacao = document.getElementById('data-atualizacao');
-const botoesFiltro = document.querySelectorAll('.filtro-btn');
-
-let vagasCarregadas = [];
-
-// Carregar outras plataformas
-function carregarPlataformas() {
-  if (!plataformasContainer) return;
-  plataformasContainer.innerHTML = PLATAFORMAS.map(p => `
-    <a href="${p.url}" target="_blank" class="plataforma-card">
-      <i class="${p.icone}"></i>
-      <h4>${p.nome}</h4>
-      <p>${p.descricao}</p>
-      <span class="link-icone"><i class="fas fa-external-link-alt"></i></span>
+  // Caso o HTML já tenha as plataformas hardcoded, substitui pelas do array
+  container.innerHTML = PLATAFORMAS.map(p => `
+    <a href="${p.url}" target="_blank" rel="noopener" title="${escapar(p.descricao)}">
+      <i class="${p.icone}"></i> ${escapar(p.nome)}
     </a>
   `).join('');
 }
 
-// Buscar da API Adzuna
-async function buscarVagasAPI(busca = "estágio contabilidade") {
-  if (!ADZUNA_APP_ID || !ADZUNA_APP_KEY) {
-    usarVagasExemplo("🔧 Configure sua API Adzuna para ver vagas atualizadas! Usando exemplos:");
+/* ---------- RENDERIZAR VAGAS ---------- */
+function renderizarVagas(vagas) {
+  const container = document.getElementById('vagas-container');
+  if (!container) return;
+
+  if (!vagas.length) {
+    container.innerHTML = `
+      <div class="vazio" style="grid-column: 1/-1; text-align:center; padding:30px; color:var(--text-muted);">
+        <i class="fas fa-inbox" style="font-size:2.5rem; color:var(--border); display:block; margin-bottom:10px;"></i>
+        <p>Nenhuma vaga encontrada no momento.</p>
+      </div>`;
     return;
   }
+
+  container.innerHTML = vagas.map(v => {
+    const titulo  = v.title || 'Vaga';
+    const empresa = v.company?.display_name || 'Empresa não informada';
+    const local   = v.location?.display_name || 'Local não informado';
+    const link    = v.redirect_url || '#';
+
+    return `
+      <div class="vaga-card">
+        <h3>${escapar(titulo)}</h3>
+        <p class="empresa">${escapar(empresa)}</p>
+        <p class="localidade"><i class="fas fa-map-marker-alt"></i> ${escapar(local)}</p>
+        <a href="${link}" target="_blank" rel="noopener">
+          Ver vaga <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>`;
+  }).join('');
+}
+
+/* ---------- BUSCAR VAGAS NA ADZUNA ---------- */
+async function buscarVagasAdzuna() {
+  const url = `https://api.adzuna.com/v1/api/jobs/${ADZUNA_COUNTRY}/search/1`
+    + `?app_id=${ADZUNA_APP_ID}`
+    + `&app_key=${ADZUNA_APP_KEY}`
+    + `&results_per_page=${ADZUNA_LIMIT}`
+    + `&what=${encodeURIComponent(ADZUNA_QUERY)}`
+    + `&content-type=application/json`;
+
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error('Falha ao consultar Adzuna');
+  const dados = await resp.json();
+  return dados.results || [];
+}
+
+/* ---------- CARREGAR VAGAS ---------- */
+async function carregarVagas() {
+  const container = document.getElementById('vagas-container');
+  if (!container) return;
+
+  if (!ADZUNA_APP_ID || !ADZUNA_APP_KEY) {
+    renderizarVagas(VAGAS_EXEMPLO);
+    return;
+  }
+
+  container.innerHTML = `
+    <div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">
+      <i class="fas fa-spinner fa-spin" style="font-size:1.5rem;"></i>
+      <p>Carregando vagas...</p>
+    </div>`;
 
   try {
-    const url = `https://api.adzuna.com/v1/api/jobs/${PAIS}/search/1`;
-    const params = new URLSearchParams({
-      app_id: ADZUNA_APP_ID,
-      app_key: ADZUNA_APP_KEY,
-      results_per_page: 15,
-      what: busca,
-      where: "Brasil",
-      full_time: 0,
-      part_time: 1
-    });
-
-    const resposta = await fetch(`${url}?${params}`);
-    
-    if (!resposta.ok) throw new Error("Erro na API");
-    
-    const dados = await resposta.json();
-    vagasCarregadas = processarVagas(dados.results || []);
-    renderizarVagas('todas');
-    
-    const agora = new Date().toLocaleString('pt-BR');
-    dataAtualizacao.textContent = `✅ Atualizado em: ${agora}`;
-    
-  } catch (erro) {
-    console.error("Erro ao buscar vagas:", erro);
-    usarVagasExemplo("⚠️ Não foi possível conectar à API. Vagas de exemplo:");
+    const vagas = await buscarVagasAdzuna();
+    renderizarVagas(vagas.length ? vagas : VAGAS_EXEMPLO);
+  } catch (err) {
+    console.warn('Erro Adzuna, usando exemplos:', err);
+    renderizarVagas(VAGAS_EXEMPLO);
   }
 }
 
-function processarVagas(lista) {
-  return lista.map(v => ({
-    titulo: v.title || "Vaga sem título",
-    empresa: v.company?.display_name || "Empresa não informada",
-    local: v.location?.display_name || "Local não informado",
-    descricao: (v.description || "").substring(0, 120) + "...",
-    tipo: classificarVaga(v.title + " " + v.description),
-    link: v.redirect_url || "#"
-  }));
-}
-
-function classificarVaga(texto) {
-  const t = texto.toLowerCase();
-  if (/contabil|fiscal|auditor/.test(t)) return 'contabilidade';
-  if (/financeir|cobrar|pagar|receber/.test(t)) return 'financeiro';
-  return 'administrativo';
-}
-
-function usarVagasExemplo(mensagem) {
-  vagasCarregadas = vagasExemplo;
-  renderizarVagas('todas');
-  dataAtualizacao.textContent = mensagem;
-  dataAtualizacao.style.color = 'var(--primary)';
-}
-
-function renderizarVagas(filtro) {
-  const filtradas = filtro === 'todas' 
-    ? vagasCarregadas 
-    : vagasCarregadas.filter(v => v.tipo === filtro);
-
-  if (filtradas.length === 0) {
-    container.innerHTML = `
-      <div style="padding: 30px; text-align: center; color: var(--gray);">
-        <i class="fas fa-search" style="font-size: 1.5rem; margin-bottom: 10px;"></i>
-        <p>Nenhuma vaga encontrada para este filtro.</p>
-      </div>
-    `;
-    return;
-  }
-
-  container.innerHTML = filtradas.map(vaga => `
-    <div class="vaga-card">
-      <h3>${escapeHtml(vaga.titulo)}</h3>
-      <span class="empresa"><i class="fas fa-building"></i> ${escapeHtml(vaga.empresa)}</span>
-      <span class="local"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(vaga.local)}</span>
-      <p class="descricao">${escapeHtml(vaga.descricao)}</p>
-      <a href="${escapeHtml(vaga.link)}" target="_blank" class="btn-link">
-        <i class="fas fa-external-link-alt"></i> Ver Vaga
-      </a>
-    </div>
-  `).join('');
-}
-
-function escapeHtml(texto) {
-  const div = document.createElement('div');
-  div.textContent = texto;
-  return div.innerHTML;
-}
-
-// Filtros
-botoesFiltro.forEach(botao => {
-  botao.addEventListener('click', () => {
-    botoesFiltro.forEach(b => b.classList.remove('active'));
-    botao.classList.add('active');
-    renderizarVagas(botao.dataset.filtro);
-  });
-});
-
-// Iniciar
+/* ---------- START ---------- */
 document.addEventListener('DOMContentLoaded', () => {
-  carregarPlataformas();
-  buscarVagasAPI();
+  iniciarTema();
+  renderizarPlataformas();
+  carregarVagas();
 });
-
-console.log('✅ Portfólio carregado com sucesso!');
