@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRM de Candidaturas | Bruno Labanca</title>
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -29,6 +26,7 @@
       --info: #3b82f6;
       --purple: #8b5cf6;
       --gray: #6b7280;
+      --whatsapp: #25d366;
     }
 
     body.dark {
@@ -65,20 +63,10 @@
       margin-bottom: 24px;
     }
 
-    .topo h1 {
-      font-size: 1.6rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .topo h1 { font-size: 1.6rem; display: flex; align-items: center; gap: 10px; }
     .topo h1 i { color: var(--primary); }
 
-    .topo-acoes {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .topo-acoes { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .btn {
       display: inline-flex;
@@ -106,9 +94,54 @@
     }
 
     .btn-outline:hover { background: var(--border); }
-
     .btn-danger { background: var(--danger); }
     .btn-danger:hover { background: #b91c1c; }
+    .btn-whats { background: var(--whatsapp); }
+    .btn-whats:hover { background: #1ebe5b; }
+
+    /* ===== ALERTAS DE FOLLOW-UP ===== */
+    .alertas-painel {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border-left: 5px solid var(--warning);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    body.dark .alertas-painel {
+      background: linear-gradient(135deg, #422006, #78350f);
+    }
+
+    .alertas-painel.ativo { display: block; }
+
+    .alertas-painel h3 {
+      font-size: 1rem;
+      color: #92400e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body.dark .alertas-painel h3 { color: #fcd34d; }
+
+    .alertas-painel ul { list-style: none; }
+
+    .alertas-painel li {
+      font-size: 0.88rem;
+      color: #78350f;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body.dark .alertas-painel li { color: #fde68a; }
+
+    .alertas-painel li strong { color: #92400e; }
+    body.dark .alertas-painel li strong { color: #fcd34d; }
 
     /* ===== DASHBOARD ===== */
     .dashboard {
@@ -126,12 +159,7 @@
       border-left: 4px solid var(--primary);
     }
 
-    .stat .num {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
+    .stat .num { font-size: 1.8rem; font-weight: 700; color: var(--text); }
     .stat .lbl {
       font-size: 0.8rem;
       color: var(--text-muted);
@@ -144,6 +172,65 @@
     .stat.entrevista { border-left-color: var(--purple); }
     .stat.aprovada { border-left-color: var(--success); }
     .stat.recusada { border-left-color: var(--danger); }
+
+    /* ===== FUNIL ===== */
+    .funil-box {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .funil-box h3 {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .funil-box h3 i { color: var(--primary); }
+
+    .funil-etapa { margin-bottom: 10px; }
+
+    .funil-etapa-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+
+    .funil-etapa-label strong { color: var(--text); }
+
+    .funil-barra {
+      height: 22px;
+      background: var(--bg);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .funil-preenchimento {
+      height: 100%;
+      border-radius: 20px;
+      transition: width 0.6s ease;
+      min-width: 4px;
+    }
+
+    .funil-enviada { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .funil-analise { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .funil-entrevista { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+    .funil-aprovada { background: linear-gradient(90deg, #10b981, #34d399); }
+
+    .funil-taxa {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 2px;
+    }
 
     /* ===== FILTROS ===== */
     .filtros {
@@ -171,15 +258,11 @@
     }
 
     .filtros input { flex: 1; min-width: 200px; }
-
     .filtros input:focus,
     .filtros select:focus { border-color: var(--primary); }
 
     /* ===== LISTA DE VAGAS ===== */
-    .vagas-lista {
-      display: grid;
-      gap: 14px;
-    }
+    .vagas-lista { display: grid; gap: 14px; }
 
     .vaga-item {
       background: var(--card-bg);
@@ -190,10 +273,7 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .vaga-item:hover {
-      transform: translateX(4px);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-    }
+    .vaga-item:hover { transform: translateX(4px); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12); }
 
     .vaga-item[data-status="Enviada"] { border-left-color: var(--info); }
     .vaga-item[data-status="Em análise"] { border-left-color: var(--warning); }
@@ -211,18 +291,10 @@
       flex-wrap: wrap;
     }
 
-    .vaga-titulo {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text);
-    }
+    .vaga-titulo { font-size: 1.05rem; font-weight: 600; color: var(--text); }
+    .vaga-empresa { color: var(--primary); font-size: 0.9rem; font-weight: 500; margin-top: 2px; }
 
-    .vaga-empresa {
-      color: var(--primary);
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-top: 2px;
-    }
+    .vaga-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 
     .vaga-meta {
       display: flex;
@@ -263,12 +335,23 @@
     .badge[data-status="Recusada"] { background: var(--danger); }
     .badge[data-status="Desistida"] { background: var(--gray); }
 
-    .vaga-acoes {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      flex-wrap: wrap;
+    /* Badge de alerta follow-up */
+    .badge-alerta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
     }
+
+    body.dark .badge-alerta { background: #450a0a; color: #fca5a5; border-color: #7f1d1d; }
+
+    .vaga-acoes { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 
     .vaga-acoes button,
     .vaga-acoes a {
@@ -294,10 +377,8 @@
       border-color: var(--primary);
     }
 
-    .vaga-acoes .btn-del:hover {
-      background: var(--danger);
-      border-color: var(--danger);
-    }
+    .vaga-acoes .btn-del:hover { background: var(--danger); border-color: var(--danger); }
+    .vaga-acoes .btn-wa:hover { background: var(--whatsapp); border-color: var(--whatsapp); }
 
     /* ===== MODAL ===== */
     .modal-overlay {
@@ -364,18 +445,25 @@
 
     .campo textarea { resize: vertical; min-height: 80px; }
 
-    .campo-duplo {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .campo-duplo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .campo-arquivo {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--bg);
     }
 
-    .modal-acoes {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 20px;
-    }
+    .campo-arquivo:hover { border-color: var(--primary); background: rgba(37, 99, 235, 0.05); }
+
+    .campo-arquivo i { font-size: 1.5rem; color: var(--primary); margin-bottom: 6px; display: block; }
+    .campo-arquivo p { font-size: 0.85rem; color: var(--text-muted); }
+    .campo-arquivo .nome-arquivo { color: var(--primary); font-weight: 500; margin-top: 6px; font-size: 0.85rem; }
+
+    .modal-acoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
 
     /* ===== VAZIO ===== */
     .vazio {
@@ -387,11 +475,7 @@
       color: var(--text-muted);
     }
 
-    .vazio i {
-      font-size: 3rem;
-      color: var(--border);
-      margin-bottom: 14px;
-    }
+    .vazio i { font-size: 3rem; color: var(--border); margin-bottom: 14px; }
 
     /* ===== RESPONSIVO ===== */
     @media (max-width: 600px) {
@@ -412,7 +496,7 @@
     <h1><i class="fas fa-briefcase"></i> CRM de Candidaturas</h1>
     <div class="topo-acoes">
       <a href="index.html" class="btn btn-outline">
-        <i class="fas fa-arrow-left"></i> Voltar ao portfólio
+        <i class="fas fa-arrow-left"></i> Voltar
       </a>
       <button class="btn btn-outline" id="btn-exportar">
         <i class="fas fa-file-csv"></i> Exportar CSV
@@ -423,8 +507,14 @@
     </div>
   </div>
 
+  <!-- ALERTAS DE FOLLOW-UP -->
+  <div class="alertas-painel" id="alertas-painel">
+    <h3><i class="fas fa-bell"></i> Acompanhamento pendente</h3>
+    <ul id="alertas-lista"></ul>
+  </div>
+
   <!-- DASHBOARD -->
-  <div class="dashboard" id="dashboard">
+  <div class="dashboard">
     <div class="stat enviada">
       <div class="num" id="stat-total">0</div>
       <div class="lbl">Total</div>
@@ -449,6 +539,40 @@
       <div class="num" id="stat-recusada">0</div>
       <div class="lbl">Recusadas</div>
     </div>
+  </div>
+
+  <!-- FUNIL -->
+  <div class="funil-box">
+    <h3><i class="fas fa-filter"></i> Funil de candidaturas</h3>
+    <div class="funil-etapa">
+      <div class="funil-etapa-label">
+        <span><strong>Enviadas</strong></span>
+        <span id="funil-enviada-txt">0</span>
+      </div>
+      <div class="funil-barra"><div class="funil-preenchimento funil-enviada" id="funil-enviada" style="width:0%"></div></div>
+    </div>
+    <div class="funil-etapa">
+      <div class="funil-etapa-label">
+        <span><strong>Em análise</strong></span>
+        <span id="funil-analise-txt">0</span>
+      </div>
+      <div class="funil-barra"><div class="funil-preenchimento funil-analise" id="funil-analise" style="width:0%"></div></div>
+    </div>
+    <div class="funil-etapa">
+      <div class="funil-etapa-label">
+        <span><strong>Entrevistas / Testes</strong></span>
+        <span id="funil-entrevista-txt">0</span>
+      </div>
+      <div class="funil-barra"><div class="funil-preenchimento funil-entrevista" id="funil-entrevista" style="width:0%"></div></div>
+    </div>
+    <div class="funil-etapa">
+      <div class="funil-etapa-label">
+        <span><strong>Aprovadas</strong></span>
+        <span id="funil-aprovada-txt">0</span>
+      </div>
+      <div class="funil-barra"><div class="funil-preenchimento funil-aprovada" id="funil-aprovada" style="width:0%"></div></div>
+    </div>
+    <div class="funil-taxa" id="funil-taxa">Taxa de conversão: 0%</div>
   </div>
 
   <!-- FILTROS -->
@@ -520,8 +644,23 @@
       </div>
 
       <div class="campo">
+        <label for="contato">Contato do recrutador (WhatsApp/telefone)</label>
+        <input type="tel" id="contato" placeholder="Ex.: 22999998888">
+      </div>
+
+      <div class="campo">
         <label for="obs">Observações</label>
         <textarea id="obs" placeholder="Anotações, contatos, próximos passos..."></textarea>
+      </div>
+
+      <div class="campo">
+        <label>Currículo enviado (opcional)</label>
+        <div class="campo-arquivo" id="area-arquivo">
+          <i class="fas fa-file-pdf"></i>
+          <p>Clique para anexar o PDF do currículo</p>
+          <div class="nome-arquivo" id="nome-arquivo"></div>
+        </div>
+        <input type="file" id="arquivo" accept=".pdf,.doc,.docx" hidden>
       </div>
 
       <div class="modal-acoes">
@@ -537,12 +676,14 @@
 <script>
 /* =========================================================
    CRM DE CANDIDATURAS — localStorage
+   Recursos: alertas de follow-up, funil, anexo, WhatsApp
    ========================================================= */
 
 const STORAGE_KEY = 'crm_vagas_bruno';
+const DIAS_ALERTA = 7; // dias sem resposta para acionar alerta
 
 let vagas = carregar();
-let editandoId = null;
+let arquivoBase64 = null;
 
 /* -------- Persistência -------- */
 function carregar() {
@@ -554,26 +695,43 @@ function carregar() {
 }
 
 function salvar() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(vagas));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(vagas));
+  } catch (e) {
+    alert('Erro ao salvar: o armazenamento do navegador está cheio. Exclua anexos antigos ou exporte e limpe os dados.');
+  }
 }
 
 function gerarId() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
-/* -------- Formatar data -------- */
+/* -------- Utilidades -------- */
 function formatarData(iso) {
   if (!iso) return '—';
   const [a, m, d] = iso.split('-');
   return `${d}/${m}/${a}`;
 }
 
-/* -------- Renderizar dashboard -------- */
+function diasDesde(iso) {
+  if (!iso) return 0;
+  const hoje = new Date();
+  const data = new Date(iso);
+  const diff = Math.floor((hoje - data) / (1000 * 60 * 60 * 24));
+  return diff;
+}
+
+function escapar(txt) {
+  const d = document.createElement('div');
+  d.textContent = txt ?? '';
+  return d.innerHTML;
+}
+
+/* -------- Dashboard -------- */
 function renderDashboard() {
-  const total = vagas.length;
   const contar = (s) => vagas.filter(v => v.status === s).length;
 
-  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-total').textContent = vagas.length;
   document.getElementById('stat-enviada').textContent = contar('Enviada');
   document.getElementById('stat-analise').textContent = contar('Em análise');
   document.getElementById('stat-entrevista').textContent =
@@ -582,19 +740,65 @@ function renderDashboard() {
   document.getElementById('stat-recusada').textContent = contar('Recusada');
 }
 
-/* -------- Renderizar lista -------- */
+/* -------- Funil -------- */
+function renderFunil() {
+  const total = vagas.length || 1;
+  const enviada = vagas.filter(v => ['Enviada', 'Em análise', 'Entrevista', 'Teste técnico', 'Aprovada'].includes(v.status)).length;
+  const analise = vagas.filter(v => ['Em análise', 'Entrevista', 'Teste técnico', 'Aprovada'].includes(v.status)).length;
+  const entrevista = vagas.filter(v => ['Entrevista', 'Teste técnico', 'Aprovada'].includes(v.status)).length;
+  const aprovada = vagas.filter(v => v.status === 'Aprovada').length;
+
+  document.getElementById('funil-enviada').style.width = (enviada / total * 100) + '%';
+  document.getElementById('funil-analise').style.width = (analise / total * 100) + '%';
+  document.getElementById('funil-entrevista').style.width = (entrevista / total * 100) + '%';
+  document.getElementById('funil-aprovada').style.width = (aprovada / total * 100) + '%';
+
+  document.getElementById('funil-enviada-txt').textContent = enviada;
+  document.getElementById('funil-analise-txt').textContent = analise;
+  document.getElementById('funil-entrevista-txt').textContent = entrevista;
+  document.getElementById('funil-aprovada-txt').textContent = aprovada;
+
+  const taxa = vagas.length ? Math.round(aprovada / vagas.length * 100) : 0;
+  document.getElementById('funil-taxa').textContent = `Taxa de conversão: ${taxa}%`;
+}
+
+/* -------- Alertas de Follow-up -------- */
+function renderAlertas() {
+  const painel = document.getElementById('alertas-painel');
+  const lista = document.getElementById('alertas-lista');
+
+  const pendentes = vagas
+    .filter(v => ['Enviada', 'Em análise'].includes(v.status))
+    .map(v => ({ ...v, dias: diasDesde(v.data) }))
+    .filter(v => v.dias >= DIAS_ALERTA)
+    .sort((a, b) => b.dias - a.dias);
+
+  if (pendentes.length === 0) {
+    painel.classList.remove('ativo');
+    return;
+  }
+
+  painel.classList.add('ativo');
+  lista.innerHTML = pendentes.map(v => `
+    <li>
+      <i class="fas fa-exclamation-circle"></i>
+      <strong>${escapar(v.empresa)}</strong> — ${escapar(v.cargo)}
+      · <span>${v.dias} dias sem retorno</span>
+    </li>
+  `).join('');
+}
+
+/* -------- Lista de vagas -------- */
 function renderLista() {
   const busca = document.getElementById('busca').value.toLowerCase().trim();
   const statusFiltro = document.getElementById('filtro-status').value;
   const ordem = document.getElementById('ordenacao').value;
 
   let filtradas = vagas.filter(v => {
-    const bateBusca =
-      !busca ||
+    const bateBusca = !busca ||
       v.empresa.toLowerCase().includes(busca) ||
       v.cargo.toLowerCase().includes(busca) ||
       (v.obs || '').toLowerCase().includes(busca);
-
     const bateStatus = !statusFiltro || v.status === statusFiltro;
     return bateBusca && bateStatus;
   });
@@ -619,19 +823,31 @@ function renderLista() {
     return;
   }
 
-  lista.innerHTML = filtradas.map(v => `
+  lista.innerHTML = filtradas.map(v => {
+    const dias = diasDesde(v.data);
+    const mostrarAlerta = ['Enviada', 'Em análise'].includes(v.status) && dias >= DIAS_ALERTA;
+
+    const waLink = v.contato
+      ? `https://wa.me/55${v.contato.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá! Estou entrando em contato sobre a vaga de ${v.cargo} na ${v.empresa}.`)}`
+      : '';
+
+    return `
     <div class="vaga-item" data-status="${v.status}">
       <div class="vaga-header">
         <div>
           <div class="vaga-titulo">${escapar(v.cargo)}</div>
           <div class="vaga-empresa">${escapar(v.empresa)}</div>
         </div>
-        <span class="badge" data-status="${v.status}">${v.status}</span>
+        <div class="vaga-badges">
+          ${mostrarAlerta ? `<span class="badge-alerta"><i class="fas fa-exclamation-triangle"></i> ${dias}d sem retorno</span>` : ''}
+          <span class="badge" data-status="${v.status}">${v.status}</span>
+        </div>
       </div>
 
       <div class="vaga-meta">
         <span><i class="fas fa-calendar"></i> ${formatarData(v.data)}</span>
         ${v.link ? `<span><i class="fas fa-link"></i> <a href="${escapar(v.link)}" target="_blank" rel="noopener" style="color:var(--primary)">Ver vaga</a></span>` : ''}
+        ${v.arquivo ? `<span><i class="fas fa-paperclip"></i> <a href="${v.arquivo}" download="curriculo_${v.empresa.replace(/\s+/g, '_')}.pdf" style="color:var(--primary)">Currículo</a></span>` : ''}
       </div>
 
       ${v.obs ? `<div class="vaga-obs">${escapar(v.obs)}</div>` : ''}
@@ -639,21 +855,19 @@ function renderLista() {
       <div class="vaga-acoes">
         <button onclick="editarVaga('${v.id}')"><i class="fas fa-edit"></i> Editar</button>
         <button onclick="mudarStatus('${v.id}')"><i class="fas fa-sync"></i> Mudar status</button>
+        ${waLink ? `<a href="${waLink}" target="_blank" rel="noopener" class="btn-wa"><i class="fab fa-whatsapp"></i> Recrutador</a>` : ''}
         <button class="btn-del" onclick="excluirVaga('${v.id}')"><i class="fas fa-trash"></i> Excluir</button>
       </div>
     </div>
-  `).join('');
-}
-
-function escapar(txt) {
-  const d = document.createElement('div');
-  d.textContent = txt ?? '';
-  return d.innerHTML;
+  `}).join('');
 }
 
 /* -------- Modal -------- */
 const overlay = document.getElementById('modal-overlay');
 const form = document.getElementById('form-vaga');
+const inputArquivo = document.getElementById('arquivo');
+const areaArquivo = document.getElementById('area-arquivo');
+const nomeArquivo = document.getElementById('nome-arquivo');
 
 function abrirModal(titulo = 'Nova candidatura', dados = null) {
   document.getElementById('modal-titulo').textContent = titulo;
@@ -663,7 +877,11 @@ function abrirModal(titulo = 'Nova candidatura', dados = null) {
   document.getElementById('data').value = dados?.data || new Date().toISOString().slice(0, 10);
   document.getElementById('status').value = dados?.status || 'Enviada';
   document.getElementById('link').value = dados?.link || '';
+  document.getElementById('contato').value = dados?.contato || '';
   document.getElementById('obs').value = dados?.obs || '';
+  arquivoBase64 = dados?.arquivo || null;
+  nomeArquivo.textContent = arquivoBase64 ? '📎 Currículo já anexado (clique para trocar)' : '';
+
   overlay.classList.add('aberto');
   setTimeout(() => document.getElementById('empresa').focus(), 100);
 }
@@ -671,13 +889,35 @@ function abrirModal(titulo = 'Nova candidatura', dados = null) {
 function fecharModal() {
   overlay.classList.remove('aberto');
   form.reset();
-  editandoId = null;
+  arquivoBase64 = null;
+  nomeArquivo.textContent = '';
 }
 
 document.getElementById('btn-nova').addEventListener('click', () => abrirModal());
 document.getElementById('btn-cancelar').addEventListener('click', fecharModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) fecharModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
+
+/* -------- Anexo de arquivo -------- */
+areaArquivo.addEventListener('click', () => inputArquivo.click());
+
+inputArquivo.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (file.size > 1024 * 1024) {
+    alert('Arquivo muito grande. Máximo 1MB (para caber no localStorage).');
+    inputArquivo.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = ev => {
+    arquivoBase64 = ev.target.result;
+    nomeArquivo.textContent = '📎 ' + file.name;
+  };
+  reader.readAsDataURL(file);
+});
 
 /* -------- Salvar -------- */
 form.addEventListener('submit', e => {
@@ -690,7 +930,9 @@ form.addEventListener('submit', e => {
     data: document.getElementById('data').value,
     status: document.getElementById('status').value,
     link: document.getElementById('link').value.trim(),
+    contato: document.getElementById('contato').value.trim(),
     obs: document.getElementById('obs').value.trim(),
+    arquivo: arquivoBase64,
   };
 
   if (id) {
@@ -745,13 +987,14 @@ document.getElementById('btn-exportar').addEventListener('click', () => {
     return;
   }
 
-  const cabecalho = ['Empresa', 'Cargo', 'Data', 'Status', 'Link', 'Observações'];
+  const cabecalho = ['Empresa', 'Cargo', 'Data', 'Status', 'Link', 'Contato', 'Observações'];
   const linhas = vagas.map(v => [
     v.empresa,
     v.cargo,
     formatarData(v.data),
     v.status,
     v.link || '',
+    v.contato || '',
     (v.obs || '').replace(/\n/g, ' '),
   ]);
 
@@ -776,10 +1019,12 @@ document.getElementById('ordenacao').addEventListener('change', renderLista);
 /* -------- Render geral -------- */
 function renderTudo() {
   renderDashboard();
+  renderFunil();
+  renderAlertas();
   renderLista();
 }
 
-/* -------- Inicialização -------- */
+/* -------- Start -------- */
 renderTudo();
 </script>
 
