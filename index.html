@@ -3,565 +3,511 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfólio profissional de Bruno Labanca de Oliveira - Farmacêutico com 11 anos de experiência, estudante de Contabilidade.">
-  <meta name="keywords" content="Farmacêutico, Contabilidade, Estágio, Cabo Frio, Rio de Janeiro">
-  <meta name="author" content="Bruno Labanca de Oliveira">
-  
-  <!-- Open Graph / Redes Sociais -->
-  <meta property="og:title" content="Bruno Labanca de Oliveira | Farmacêutico">
-  <meta property="og:description" content="Farmacêutico com 11 anos de experiência buscando oportunidade de estágio em Contabilidade.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://brunolabanca.comunidades.net/">
-  
-  <title>Bruno Labanca de Oliveira | Farmacêutico</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <meta name="description" content="Portfólio profissional de Bruno Labanca de Oliveira — Farmacêutico e estudante de Ciências Contábeis em busca de estágio na área financeira/contábil.">
+  <title>Bruno Labanca | Portfólio Profissional</title>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  >
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --primary: #0d9488; --primary-dark: #0f766e; --accent: #06b6d4;
-      --dark: #0f172a; --gray: #64748b; --light: #f8fafc;
-      --white: #ffffff; --border: #e2e8f0;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --border: #e5e7eb;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --tag-bg: #eff6ff;
+      --tag-text: #1e40af;
     }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      color: var(--dark); 
-      background: var(--light); 
-      line-height: 1.6;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    body.dark-mode {
-      --dark: #f8fafc;
-      --light: #0f172a;
-      --white: #1e293b;
+
+    body.dark {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-dark: #60a5fa;
       --border: #334155;
-      --gray: #94a3b8;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --tag-bg: #1e3a8a;
+      --tag-text: #bfdbfe;
     }
-    a { text-decoration: none; color: inherit; }
-    
-    /* Botão Tema */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ===== TEMA ===== */
     .theme-toggle {
       position: fixed;
       top: 20px;
       right: 20px;
-      z-index: 1000;
-      background: var(--white);
+      background: var(--card-bg);
+      color: var(--text);
       border: 1px solid var(--border);
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      width: 44px;
-      height: 44px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      box-shadow: var(--shadow-md);
-      transition: all 0.3s ease;
+      font-size: 18px;
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      transition: transform 0.2s ease;
     }
-    .theme-toggle:hover { transform: scale(1.1); }
-    
-    /* HERO */
-    .hero { 
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%); 
-      color: white; 
-      padding: 80px 20px 100px; 
-      position: relative; 
-      overflow: hidden; 
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
     }
-    .hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; }
-    .hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 300px; height: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; }
-    .hero-content { 
-      max-width: 1100px; 
-      margin: 0 auto; 
-      position: relative; 
-      z-index: 1; 
-      display: flex; 
-      align-items: center; 
-      gap: 50px; 
-      flex-wrap: wrap; 
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 40px 30px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 24px;
     }
-    .avatar { 
-      width: 160px; 
-      height: 160px; 
-      border-radius: 50%; 
+
+    .foto-perfil {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
       object-fit: cover;
-      background: rgba(255, 255, 255, 0.15); 
-      backdrop-filter: blur(10px); 
-      border: 4px solid rgba(255, 255, 255, 0.3); 
-      flex-shrink: 0; 
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
+      border: 4px solid var(--primary);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+      margin-bottom: 20px;
     }
-    .avatar:hover { transform: scale(1.05); }
-    .hero-text h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -1px; }
-    .hero-text .role { font-size: 1.4rem; font-weight: 500; opacity: 0.95; margin-bottom: 16px; }
-    .hero-text .location { font-size: 1rem; opacity: 0.85; display: flex; align-items: center; gap: 8px; }
-    .hero-buttons { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn-primary {
-      background: var(--white);
-      color: var(--primary-dark);
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    header h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
-    .btn-outline {
-      background: rgba(255, 255, 255, 0.15);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 12px 24px;
-      border-radius: 50px;
+
+    header .titulo {
+      color: var(--primary);
       font-weight: 500;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    header .local {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    header .local i {
+      margin-right: 6px;
+    }
+
+    .contatos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .contatos a {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-    .btn-outline:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
-    
-    /* CONTAINER */
-    .container { max-width: 1100px; margin: -50px auto 0; padding: 0 20px 60px; position: relative; z-index: 2; }
-    
-    /* CARDS */
-    .card { 
-      background: var(--white); 
-      border-radius: 16px; 
-      padding: 36px; 
-      margin-bottom: 24px; 
-      box-shadow: var(--shadow-sm); 
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-    .card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-    .card-title { font-size: 1.4rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
-    .card-title i { color: var(--primary); font-size: 1.2rem; }
-    
-    /* RESUMO, SKILLS, TIMELINE, EDUCAÇÃO */
-    .summary p { color: var(--dark); margin-bottom: 14px; font-size: 1rem; opacity: 0.9; }
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skill-tag { 
-      background: linear-gradient(135deg, #f0fdfa, #ccfbf1); 
-      color: var(--primary-dark); 
-      padding: 10px 18px; 
-      border-radius: 50px; 
-      font-size: 0.9rem; 
-      font-weight: 600; 
-      border: 1px solid #99f6e4; 
-      transition: all 0.3s ease; 
-    }
-    body.dark-mode .skill-tag { background: linear-gradient(135deg, #134e4a, #115e59); color: #ccfbf1; border-color: #0d9488; }
-    .skill-tag:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(13, 148, 136, 0.2); }
-    
-    .timeline { position: relative; padding-left: 32px; }
-    .timeline::before { content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 2px; }
-    .timeline-item { position: relative; margin-bottom: 32px; transition: opacity 0.3s ease; }
-    .timeline-item:last-child { margin-bottom: 0; }
-    .timeline-item::before { content: ''; position: absolute; left: -32px; top: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--white); border: 3px solid var(--primary); box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15); }
-    .timeline-item .job-title { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
-    .timeline-item .company { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
-    .timeline-item .period { font-size: 0.85rem; color: var(--gray); font-weight: 500; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 6px; background: var(--light); padding: 4px 12px; border-radius: 50px; }
-    .timeline-item ul { list-style: none; padding: 0; }
-    .timeline-item ul li { color: var(--dark); font-size: 0.95rem; padding-left: 20px; position: relative; margin-bottom: 8px; opacity: 0.9; }
-    .timeline-item ul li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
-    
-    .edu-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); transition: background 0.2s ease; }
-    .edu-item:hover { background: rgba(13, 148, 136, 0.05); padding-left: 8px; border-radius: 8px; }
-    .edu-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .edu-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
-    .edu-item .course { font-weight: 700; color: var(--dark); font-size: 1rem; margin-bottom: 2px; }
-    .edu-item .institution { color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
-    .edu-item .institution a { color: var(--primary); text-decoration: none; transition: color 0.3s ease; }
-    .edu-item .institution a:hover { color: var(--primary-dark); text-decoration: underline; }
-    .edu-item .period { color: var(--gray); font-size: 0.85rem; }
-    
-    .lang-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-    .lang-item { background: var(--light); padding: 18px; border-radius: 12px; border-left: 4px solid var(--primary); transition: all 0.3s ease; }
-    .lang-item:hover { transform: translateX(4px); }
-    .lang-item .lang-name { font-weight: 700; color: var(--dark); margin-bottom: 4px; }
-    .lang-item .lang-level { color: var(--gray); font-size: 0.9rem; }
-    
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    
-    /* FILTRO DE VAGAS */
-    .filtros { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-    .filtro-btn {
-      padding: 8px 16px;
-      border-radius: 50px;
-      border: 1px solid var(--border);
-      background: var(--white);
-      color: var(--gray);
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
-    }
-    .filtro-btn.active, .filtro-btn:hover {
+      padding: 10px 18px;
       background: var(--primary);
-      color: white;
-      border-color: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
-    
-    /* VAGAS */
-    .vagas-container { display: flex; flex-direction: column; gap: 16px; }
-    .vaga-card { 
-      background: var(--light); 
-      padding: 20px; 
-      border-radius: 12px; 
-      border-left: 4px solid var(--primary); 
-      display: flex; 
-      flex-direction: column; 
-      gap: 8px; 
-      transition: all 0.3s ease; 
+
+    .contatos a:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
     }
-    .vaga-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .vaga-card h3 { font-size: 1.1rem; color: var(--dark); }
-    .vaga-card .empresa { font-weight: 600; color: var(--primary); font-size: 0.95rem; }
-    .vaga-card .local { color: var(--gray); font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
-    .vaga-card .descricao { font-size: 0.9rem; color: var(--dark); opacity: 0.8; margin-top: 4px; }
-    .vaga-card .btn-link { 
-      display: inline-flex; 
-      align-items: center; 
-      gap: 8px; 
-      background: var(--primary); 
-      color: white; 
-      padding: 8px 16px; 
-      border-radius: 6px; 
-      text-decoration: none; 
-      font-size: 0.85rem; 
-      font-weight: 600; 
-      width: fit-content; 
-      margin-top: 8px; 
-      transition: background 0.3s; 
+
+    /* ===== SEÇÕES ===== */
+    section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
     }
-    .vaga-card .btn-link:hover { background: var(--primary-dark); }
-    .loading { text-align: center; padding: 40px 20px; color: var(--gray); }
-    .loading i { animation: spin 1s linear infinite; font-size: 2rem; color: var(--primary); }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .atualizado { font-size: 0.8rem; color: var(--gray); margin-top: 12px; }
-    
-    /* PLATAFORMAS DE VAGAS */
-    .plataformas-grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-      gap: 16px; 
+
+    section h2 {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .plataforma-card {
-      background: var(--light);
-      padding: 20px;
+
+    section h2 i {
+      color: var(--primary);
+    }
+
+    section p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-align: justify;
+    }
+
+    /* ===== COMPETÊNCIAS ===== */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* ===== EXPERIÊNCIA ===== */
+    .item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .item:first-child {
+      padding-top: 0;
+    }
+
+    .item h3 {
+      font-size: 1.05rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .item .meta {
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 2px 0 8px;
+    }
+
+    .item ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .item ul li {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    .item ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    /* ===== VAGAS ===== */
+    .vagas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .vaga-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
       border-radius: 12px;
+      padding: 18px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .vaga-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .vaga-card h3 {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .vaga-card .empresa {
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .vaga-card .localidade {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .vaga-card a {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .vaga-card a:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ===== PLATAFORMAS ===== */
+    .plataformas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .plataformas a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--bg);
+      color: var(--text);
       text-decoration: none;
       border: 1px solid var(--border);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      position: relative;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
     }
-    .plataforma-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
+
+    .plataformas a:hover {
+      background: var(--primary);
+      color: #fff;
       border-color: var(--primary);
     }
-    .plataforma-card i:first-child {
-      font-size: 1.8rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-    .plataforma-card h4 {
-      font-size: 1rem;
-      color: var(--dark);
-      font-weight: 600;
-    }
-    .plataforma-card p {
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      color: var(--text-muted);
       font-size: 0.85rem;
-      color: var(--gray);
+      padding: 20px 0;
     }
-    .plataforma-card .link-icone {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      color: var(--gray);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .plataforma-card:hover .link-icone {
-      opacity: 1;
-    }
-    
-    /* CONTATO */
-    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .contact-item { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--light); border-radius: 12px; transition: all 0.3s ease; }
-    .contact-item:hover { background: #e0f2fe; transform: translateX(4px); }
-    .contact-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .contact-text p:first-child { font-weight: 700; font-size: 0.9rem; color: var(--dark); }
-    .contact-text p:last-child { font-size: 0.85rem; color: var(--gray); }
-    
-    /* COMPARTILHAR */
-    .share-buttons { display: flex; gap: 10px; margin-top: 10px; }
-    .share-btn { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; transition: transform 0.2s; }
-    .share-btn:hover { transform: scale(1.1); }
-    .share-btn.linkedin { background: #0077b5; }
-    .share-btn.whatsapp { background: #25d366; }
-    .share-btn.email { background: #ea4335; }
-    
-    /* FOOTER E RESPONSIVO */
-    footer { 
-      text-align: center; 
-      padding: 40px 20px; 
-      color: var(--gray); 
-      font-size: 0.9rem; 
-      border-top: 1px solid var(--border); 
-      background: var(--white); 
-      margin-top: 20px;
-    }
-    footer .heart { color: #ef4444; }
-    .visits { font-size: 0.8rem; color: var(--gray); margin-top: 8px; }
-    
-    @media (max-width: 768px) {
-      .hero { padding: 60px 20px 80px; }
-      .hero-content { flex-direction: column; text-align: center; gap: 24px; }
-      .hero-text h1 { font-size: 2rem; }
-      .hero-text .role { font-size: 1.1rem; }
-      .hero-buttons { justify-content: center; }
-      .avatar { width: 130px; height: 130px; }
-      .card { padding: 24px; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .container { margin-top: -40px; }
-      .theme-toggle { top: 10px; right: 10px; }
-    }
-    @media (max-width: 480px) { 
-      .hero-text h1 { font-size: 1.6rem; } 
-      .card-title { font-size: 1.2rem; } 
-    }
-    
-    /* Animação de scroll */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 600px) {
+      body { padding: 12px; }
+      header { padding: 30px 20px; }
+      section { padding: 22px; }
+      header h1 { font-size: 1.5rem; }
+      .foto-perfil { width: 150px; height: 150px; }
+      .theme-toggle { top: 12px; right: 12px; width: 40px; height: 40px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Botão Tema Escuro/Claro -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
-    <i class="fas fa-moon" id="themeIcon"></i>
+  <!-- Botão de tema -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+    <i class="fas fa-moon"></i>
   </button>
 
-  <header class="hero">
-    <div class="hero-content">
-      <!-- 👉 COLOQUE SUA FOTO: salve como foto-perfil.jpg na mesma pasta -->
-      <img src="foto-perfil.jpg" alt="Bruno Labanca de Oliveira" class="avatar" onerror="this.style.display='none'">
-      <div class="hero-text">
-        <h1>Bruno Labanca de Oliveira</h1>
-        <div class="role">Farmacêutico • CRF Ativo</div>
-        <div class="location"><i class="fas fa-map-marker-alt"></i> Cabo Frio, Rio de Janeiro, Brasil</div>
-        <div class="hero-buttons">
-          <a href="mailto:brunolabanca@yahoo.com.br" class="btn-primary">
-            <i class="fas fa-paper-plane"></i> Entrar em Contato
-          </a>
-          <a href="#" class="btn-outline" id="downloadCV">
-            <i class="fas fa-file-pdf"></i> Baixar Currículo
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
+  <div class="container">
 
-  <main class="container">
-    <!-- SOBRE MIM -->
-    <section class="card summary fade-in">
-      <h2 class="card-title"><i class="fas fa-user-tie"></i> Sobre mim</h2>
-      <p>Farmacêutico com <strong>11 anos de experiência</strong>, profissional ético, comunicativo, resiliente e empático, empenhado em cuidar de perto da saúde e bem-estar das pessoas em todos os momentos da vida. <strong>CRF ativo.</strong></p>
-      <p>Ampla experiência em <strong>compras, financeiro e fiscal</strong>, buscando sempre o cumprimento da legislação vigente. Sólida experiência em <strong>farmacologia clínica e gerenciamento de medicamentos</strong>.</p>
-      <p>Atualmente cursando <strong>Ciências Contábeis</strong> e buscando uma oportunidade de estágio para aplicar e expandir meus conhecimentos na área financeira e contábil.</p>
-      
-      <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-        <h4 style="font-size: 0.9rem; color: var(--gray); margin-bottom: 8px;">Compartilhar este perfil:</h4>
-        <div class="share-buttons">
-          <a href="https://www.linkedin.com/sharing/share-offsite/?url=http://brunolabanca.comunidades.net/" target="_blank" class="share-btn linkedin" title="Compartilhar no LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="https://wa.me/?text=Confira%20o%20portf%C3%B3lio%20de%20Bruno%20Labanca%20de%20Oliveira%20-%20Farmac%C3%AAutico%20e%20estudante%20de%20Contabilidade:%20http://brunolabanca.comunidades.net/" target="_blank" class="share-btn whatsapp" title="Compartilhar no WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-          <a href="mailto:?subject=Portf%C3%B3lio%20Bruno%20Labanca&body=Confira%20o%20portf%C3%B3lio%20de%20Bruno%20Labanca%20de%20Oliveira:%20http://brunolabanca.comunidades.net/" class="share-btn email" title="Compartilhar por E-mail">
-            <i class="fas fa-envelope"></i>
-          </a>
-        </div>
+    <!-- HEADER -->
+    <header>
+      <img
+        src="17904682162074592360810339874874.jpg"
+        alt="Foto de perfil de Bruno Labanca"
+        class="foto-perfil"
+      >
+      <h1>Bruno Labanca de Oliveira</h1>
+      <p class="titulo">Farmacêutico • CRF Ativo • Estudante de Ciências Contábeis</p>
+      <p class="local"><i class="fas fa-map-marker-alt"></i> Cabo Frio / RJ</p>
+
+      <div class="contatos">
+        <a href="tel:+5522999999999"><i class="fas fa-phone"></i> Telefone</a>
+        <a href="mailto:brunolabanca@exemplo.com"><i class="fas fa-envelope"></i> E-mail</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://github.com/brunoldo2312" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
       </div>
+    </header>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+      <h2><i class="fas fa-user"></i> Sobre mim</h2>
+      <p>
+        Farmacêutico com <strong>11 anos de experiência</strong> na área da saúde, atuando com
+        farmacologia clínica, gestão de farmácia, compras, financeiro e fiscal. Atualmente
+        cursando <strong>Ciências Contábeis</strong> e em busca de oportunidade de estágio nas
+        áreas <strong>financeira, contábil e controladoria</strong>. Perfil ético, comunicativo,
+        organizado e com forte capacidade analítica.
+      </p>
     </section>
 
     <!-- COMPETÊNCIAS -->
-    <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-star"></i> Principais Competências</h2>
-      <div class="skills-grid">
-        <span class="skill-tag">Contabilidade</span>
-        <span class="skill-tag">Fiscal</span>
-        <span class="skill-tag">Financeiro</span>
-        <span class="skill-tag">Controladoria</span>
-        <span class="skill-tag">Auditoria</span>
-        <span class="skill-tag">Farmacologia Clínica</span>
-        <span class="skill-tag">Gestão de Farmácia</span>
-        <span class="skill-tag">Compras</span>
-        <span class="skill-tag">SNGPC</span>
-        <span class="skill-tag">Atendimento ao Cliente</span>
-        <span class="skill-tag">Liderança de Equipe</span>
-        <span class="skill-tag">Excel</span>
+    <section id="competencias">
+      <h2><i class="fas fa-lightbulb"></i> Principais competências</h2>
+      <div class="tags">
+        <span class="tag">Contabilidade</span>
+        <span class="tag">Fiscal</span>
+        <span class="tag">Financeiro</span>
+        <span class="tag">Controladoria</span>
+        <span class="tag">Auditoria</span>
+        <span class="tag">Farmacologia Clínica</span>
+        <span class="tag">Gestão de Farmácia</span>
+        <span class="tag">SNGPC</span>
+        <span class="tag">Excel Avançado</span>
+        <span class="tag">ERP</span>
+        <span class="tag">Conciliação</span>
+        <span class="tag">Rotinas Fiscais</span>
       </div>
     </section>
 
     <!-- EXPERIÊNCIA -->
-    <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-briefcase"></i> Experiência Profissional</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="job-title">Estagiário — Estágio Curricular Supervisionado</div>
-          <div class="company">UniBF / Polo ETEP (Joinville)</div>
-          <div class="period"><i class="far fa-calendar"></i> Fev 2025 – Atual (300 horas)</div>
-          <ul>
-            <li>Gestão de Pessoas e Organizações</li>
-            <li>Finanças Corporativas</li>
-            <li>Contabilidade</li>
-            <li>Controladoria</li>
-            <li>Auditoria</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="job-title">Farmacêutico</div>
-          <div class="company">Droga Raia</div>
-          <div class="period"><i class="far fa-calendar"></i> Jan 2024 – Atual</div>
-          <ul>
-            <li>Controle de rotinas e gerenciamento de equipe</li>
-            <li>Conferência de receitas e orientação técnica</li>
-            <li>Controle de medicamentos controlados e SNGPC</li>
-            <li>Gestão de estoque e compras</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="job-title">Farmacêutico Responsável</div>
-          <div class="company">Drogaria Bruno LTDA ME</div>
-          <div class="period"><i class="far fa-calendar"></i> Jul 2014 – Jan 2024</div>
-          <ul>
-            <li>Gestão completa de estabelecimento farmacêutico</li>
-            <li>Controle financeiro, compras e fiscal</li>
-            <li>Gestão de equipe e atendimento ao cliente</li>
-          </ul>
-        </div>
+    <section id="experiencia">
+      <h2><i class="fas fa-briefcase"></i> Experiência profissional</h2>
+
+      <div class="item">
+        <h3>Estágio Curricular — UniBF / ETEP</h3>
+        <p class="meta">2024 — Atual</p>
+        <ul>
+          <li>Apoio em rotinas contábeis, conciliação e lançamentos.</li>
+          <li>Auxílio em rotinas fiscais e organização documental.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <h3>Farmacêutico — Drogaria Bruno LTDA ME</h3>
+        <p class="meta">2018 — 2024</p>
+        <ul>
+          <li>Gestão de farmácia, compras e controle de estoque.</li>
+          <li>Apoio financeiro, fiscal e administrativo do negócio.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <h3>Farmacêutico — Droga Raia</h3>
+        <p class="meta">2013 — 2018</p>
+        <ul>
+          <li>Atendimento farmacêutico e farmacologia clínica.</li>
+          <li>Controle de medicamentos controlados (SNGPC).</li>
+        </ul>
       </div>
     </section>
 
-    <!-- GRID: FORMAÇÃO + IDIOMAS -->
-    <div class="grid-2">
-      <section class="card fade-in">
-        <h2 class="card-title"><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h2>
-        <div class="edu-item">
-          <div class="edu-icon"><i class="fas fa-pills"></i></div>
-          <div>
-            <div class="course">Farmácia</div>
-            <div class="institution">UNIFENAS</div>
-            <div class="period">2003 – 2012</div>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-icon"><i class="fas fa-calculator"></i></div>
-          <div>
-            <div class="course">Bacharelado em Ciências Contábeis</div>
-            <div class="institution">Faculdade UniBF</div>
-            <div class="period">Mar 2022 – Dez 2025</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card fade-in">
-        <h2 class="card-title"><i class="fas fa-language"></i> Idiomas</h2>
-        <div class="lang-grid">
-          <div class="lang-item">
-            <div class="lang-name">Português</div>
-            <div class="lang-level">Nativo</div>
-          </div>
-          <div class="lang-item">
-            <div class="lang-name">Inglês</div>
-            <div class="lang-level">Intermediário</div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- VAGAS DE ESTÁGIO REAIS -->
-    <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-search"></i> Vagas de Estágio</h2>
-      
-      <div class="filtros">
-        <button class="filtro-btn active" data-filtro="todas">Todas</button>
-        <button class="filtro-btn" data-filtro="contabilidade">Contabilidade</button>
-        <button class="filtro-btn" data-filtro="financeiro">Financeiro</button>
-        <button class="filtro-btn" data-filtro="administrativo">Administrativo</button>
+    <!-- FORMAÇÃO -->
+    <section id="formacao">
+      <h2><i class="fas fa-graduation-cap"></i> Formação acadêmica</h2>
+      <div class="item">
+        <h3>Ciências Contábeis — Faculdade UniBF</h3>
+        <p class="meta">Em andamento</p>
       </div>
-      
-      <div id="vagas-container" class="vagas-container">
-        <div class="loading"><i class="fas fa-spinner"></i><p style="margin-top: 12px;">Buscando vagas...</p></div>
-      </div>
-      <p class="atualizado" id="data-atualizacao"></p>
-    </section>
-
-    <!-- OUTRAS PLATAFORMAS DE VAGAS -->
-    <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-globe"></i> Outras Plataformas</h2>
-      <p style="color: var(--gray); margin-bottom: 16px;">Não encontrou o que procura? Confira estas plataformas:</p>
-      <div id="plataformas-container" class="plataformas-grid">
-        <div class="loading" style="padding: 10px;">Carregando plataformas...</div>
+      <div class="item">
+        <h3>Farmácia — UNIFENAS</h3>
+        <p class="meta">Concluído</p>
       </div>
     </section>
 
-    <!-- CONTATO -->
-    <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-envelope"></i> Contato</h2>
-      <div class="contact-grid">
-        <a href="tel:+5531999368393" class="contact-item">
-          <div class="contact-icon"><i class="fas fa-phone"></i></div>
-          <div class="contact-text">
-            <p>Telefone</p>
-            <p>(31) 99936-8393</p>
-          </div>
-        </a>
-        <a href="mailto:brunolabanca@yahoo.com.br" class="contact-item">
-          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-          <div class="contact-text">
-            <p>E-mail</p>
-            <p>brunolabanca@yahoo.com.br</p>
-          </div>
-        </a>
-        <a href="https://www.linkedin.com/in/bruno-labanca-de-oliveira-33369a5a" target="_blank" class="contact-item">
-          <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
-          <div class="contact-text">
-            <p>LinkedIn</p>
-            <p>Perfil Profissional</p>
-          </div>
-        </a>
+    <!-- IDIOMAS -->
+    <section id="idiomas">
+      <h2><i class="fas fa-language"></i> Idiomas</h2>
+      <div class="tags">
+        <span class="tag">Português — Nativo</span>
+        <span class="tag">Inglês — Intermediário</span>
       </div>
     </section>
 
-  </main>
+    <!-- VAGAS -->
+    <section id="vagas">
+      <h2><i class="fas fa-search"></i> Vagas de estágio</h2>
+      <p>Vagas carregadas dinamicamente via API Adzuna (ou exemplos demonstrativos).</p>
+      <div class="vagas-grid" id="vagas-container">
+        <!-- Preenchido pelo script.js -->
+      </div>
+    </section>
 
-  <footer>
-    <p>© 2026 Bruno Labanca de Oliveira — Feito com <span class="heart">♥</span></p>
-    <p class="visits" id="visitCounter">Visitas: <span id="visitCount">0</span></p>
-  </footer>
+    <!-- PLATAFORMAS -->
+    <section id="plataformas">
+      <h2><i class="fas fa-globe"></i> Outras plataformas de vagas</h2>
+      <div class="plataformas">
+        <a href="https://www.vagas.com.br" target="_blank" rel="noopener"><i class="fas fa-briefcase"></i> Vagas.com.br</a>
+        <a href="https://www.catho.com.br" target="_blank" rel="noopener"><i class="fas fa-briefcase"></i> Catho</a>
+        <a href="https://www.linkedin.com/jobs" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn Jobs</a>
+        <a href="https://www.trabalhabrasil.com.br" target="_blank" rel="noopener"><i class="fas fa-briefcase"></i> Trabalha Brasil</a>
+        <a href="https://www.glassdoor.com.br" target="_blank" rel="noopener"><i class="fas fa-briefcase"></i> Glassdoor</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; <span id="ano"></span> Bruno Labanca de Oliveira — Todos os direitos reservados.</p>
+    </footer>
+
+  </div>
 
   <script src="script.js"></script>
+  <script>
+    // Ano dinâmico no footer
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
