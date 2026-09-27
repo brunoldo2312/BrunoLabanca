@@ -32,7 +32,14 @@
       color: var(--dark); 
       background: var(--light); 
       line-height: 1.6;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body.dark-mode {
+      --dark: #f8fafc;
+      --light: #0f172a;
+      --white: #1e293b;
+      --border: #334155;
+      --gray: #94a3b8;
     }
     a { text-decoration: none; color: inherit; }
     
@@ -80,14 +87,10 @@
       width: 160px; 
       height: 160px; 
       border-radius: 50%; 
+      object-fit: cover;
       background: rgba(255, 255, 255, 0.15); 
       backdrop-filter: blur(10px); 
       border: 4px solid rgba(255, 255, 255, 0.3); 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      font-size: 64px; 
-      font-weight: 800; 
       flex-shrink: 0; 
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s ease;
@@ -143,7 +146,7 @@
     .card-title i { color: var(--primary); font-size: 1.2rem; }
     
     /* RESUMO, SKILLS, TIMELINE, EDUCAÇÃO */
-    .summary p { color: #334155; margin-bottom: 14px; font-size: 1rem; }
+    .summary p { color: var(--dark); margin-bottom: 14px; font-size: 1rem; opacity: 0.9; }
     .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill-tag { 
       background: linear-gradient(135deg, #f0fdfa, #ccfbf1); 
@@ -155,6 +158,7 @@
       border: 1px solid #99f6e4; 
       transition: all 0.3s ease; 
     }
+    body.dark-mode .skill-tag { background: linear-gradient(135deg, #134e4a, #115e59); color: #ccfbf1; border-color: #0d9488; }
     .skill-tag:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(13, 148, 136, 0.2); }
     
     .timeline { position: relative; padding-left: 32px; }
@@ -166,11 +170,11 @@
     .timeline-item .company { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
     .timeline-item .period { font-size: 0.85rem; color: var(--gray); font-weight: 500; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 6px; background: var(--light); padding: 4px 12px; border-radius: 50px; }
     .timeline-item ul { list-style: none; padding: 0; }
-    .timeline-item ul li { color: #475569; font-size: 0.95rem; padding-left: 20px; position: relative; margin-bottom: 8px; }
+    .timeline-item ul li { color: var(--dark); font-size: 0.95rem; padding-left: 20px; position: relative; margin-bottom: 8px; opacity: 0.9; }
     .timeline-item ul li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
     
     .edu-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); transition: background 0.2s ease; }
-    .edu-item:hover { background: rgba(13, 148, 136, 0.02); padding-left: 8px; border-radius: 8px; }
+    .edu-item:hover { background: rgba(13, 148, 136, 0.05); padding-left: 8px; border-radius: 8px; }
     .edu-item:last-child { border-bottom: none; padding-bottom: 0; }
     .edu-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
     .edu-item .course { font-weight: 700; color: var(--dark); font-size: 1rem; margin-bottom: 2px; }
@@ -221,8 +225,9 @@
     .vaga-card h3 { font-size: 1.1rem; color: var(--dark); }
     .vaga-card .empresa { font-weight: 600; color: var(--primary); font-size: 0.95rem; }
     .vaga-card .local { color: var(--gray); font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
-    .vaga-card .descricao { font-size: 0.9rem; color: #475569; margin-top: 4px; }
+    .vaga-card .descricao { font-size: 0.9rem; color: var(--dark); opacity: 0.8; margin-top: 4px; }
     .vaga-card .tipo-vaga { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; width: fit-content; }
+    body.dark-mode .vaga-card .tipo-vaga { background: #1e3a5f; color: #93c5fd; }
     .vaga-card .btn-link { 
       display: inline-flex; 
       align-items: center; 
@@ -242,6 +247,7 @@
     .loading { text-align: center; padding: 40px 20px; color: var(--gray); }
     .loading i { animation: spin 1s linear infinite; font-size: 2rem; color: var(--primary); }
     @keyframes spin { 100% { transform: rotate(360deg); } }
+    .atualizado { font-size: 0.8rem; color: var(--gray); margin-top: 8px; }
     
     /* CONTATO */
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
@@ -310,7 +316,8 @@
 
   <header class="hero">
     <div class="hero-content">
-      <div class="avatar" aria-hidden="true">BL</div>
+      <!-- 👉 COLOQUE SUA FOTO: substitua o arquivo foto-perfil.jpg -->
+      <img src="foto-perfil.jpg" alt="Bruno Labanca de Oliveira" class="avatar" aria-hidden="true" onerror="this.style.display='none'">
       <div class="hero-text">
         <h1>Bruno Labanca de Oliveira</h1>
         <div class="role">Farmacêutico • CRF Ativo</div>
@@ -344,7 +351,7 @@
           <a href="https://wa.me/?text=Confira%20o%20portf%C3%B3lio%20de%20Bruno%20Labanca%20de%20Oliveira%20-%20Farmac%C3%AAutico%20e%20estudante%20de%20Contabilidade:%20http://brunolabanca.comunidades.net/" target="_blank" class="share-btn whatsapp" title="Compartilhar no WhatsApp">
             <i class="fab fa-whatsapp"></i>
           </a>
-          <a href="mailto:?subject=Portfólio%20Bruno%20Labanca&body=Confira%20o%20portf%C3%B3lio%20de%20Bruno%20Labanca%20de%20Oliveira:%20http://brunolabanca.comunidades.net/" class="share-btn email" title="Compartilhar por E-mail">
+          <a href="mailto:?subject=Portf%C3%B3lio%20Bruno%20Labanca&body=Confira%20o%20portf%C3%B3lio%20de%20Bruno%20Labanca%20de%20Oliveira:%20http://brunolabanca.comunidades.net/" class="share-btn email" title="Compartilhar por E-mail">
             <i class="fas fa-envelope"></i>
           </a>
         </div>
@@ -355,22 +362,18 @@
     <section class="card fade-in">
       <h2 class="card-title"><i class="fas fa-star"></i> Principais Competências</h2>
       <div class="skills-grid">
-        <span class="skill-tag">Tutoria</span>
-        <span class="skill-tag">Planejamento de Aulas</span>
-        <span class="skill-tag">Ensino Superior</span>
+        <span class="skill-tag">Contabilidade</span>
+        <span class="skill-tag">Fiscal</span>
+        <span class="skill-tag">Financeiro</span>
+        <span class="skill-tag">Controladoria</span>
+        <span class="skill-tag">Auditoria</span>
         <span class="skill-tag">Farmacologia Clínica</span>
-        <span class="skill-tag">Gerenciamento de Medicamentos</span>
-        <span class="skill-tag">Atenção Farmacêutica</span>
         <span class="skill-tag">Gestão de Farmácia</span>
         <span class="skill-tag">Compras</span>
-        <span class="skill-tag">Financeiro</span>
-        <span class="skill-tag">Fiscal</span>
         <span class="skill-tag">SNGPC</span>
-        <span class="skill-tag">Controle de Estoque</span>
-        <span class="skill-tag">Aplicação de Injetáveis</span>
         <span class="skill-tag">Atendimento ao Cliente</span>
         <span class="skill-tag">Liderança de Equipe</span>
-        <span class="skill-tag">Machine Learning</span>
+        <span class="skill-tag">Excel</span>
       </div>
     </section>
 
@@ -393,45 +396,23 @@
         <div class="timeline-item">
           <div class="job-title">Farmacêutico</div>
           <div class="company">Droga Raia</div>
-          <div class="period"><i class="far fa-calendar"></i> Jan 2024 – Atual (1 ano 7 meses)</div>
+          <div class="period"><i class="far fa-calendar"></i> Jan 2024 – Atual</div>
           <ul>
-            <li>Controle e gerenciamento de pessoal e rotinas da drogaria</li>
-            <li>Conferência de receita médica e orientação ao cliente sobre uso do medicamento</li>
-            <li>Gerenciamento de antibióticos e medicamentos controlados, do recebimento à venda</li>
-            <li>Treinamento da equipe da farmácia</li>
-            <li>Atendimento ao cliente/paciente e atenção farmacêutica</li>
-            <li>Dispensação de medicamentos e lançamentos no SNGPC</li>
-            <li>Acompanhamento e contagem de estoque de medicamentos controlados</li>
-            <li>Organização da sala de aplicação e aplicação de injetáveis</li>
+            <li>Controle de rotinas e gerenciamento de equipe</li>
+            <li>Conferência de receitas e orientação técnica</li>
+            <li>Controle de medicamentos controlados e SNGPC</li>
+            <li>Gestão de estoque e compras</li>
           </ul>
         </div>
         <div class="timeline-item">
-          <div class="job-title">Farmacêutico</div>
+          <div class="job-title">Farmacêutico Responsável</div>
           <div class="company">Drogaria Bruno LTDA ME</div>
-          <div class="period"><i class="far fa-calendar"></i> Jul 2014 – Jan 2024 (9 anos 7 meses)</div>
+          <div class="period"><i class="far fa-calendar"></i> Jul 2014 – Jan 2024</div>
           <ul>
-            <li>Controle e gerenciamento de pessoal e rotinas da drogaria</li>
-            <li>Conferência de receita médica e orientação ao cliente sobre uso do medicamento</li>
-            <li>Gerenciamento de antibióticos e medicamentos controlados, do recebimento à venda</li>
-            <li>Treinamento da equipe da farmácia</li>
-            <li>Atendimento ao cliente/paciente e atenção farmacêutica</li>
-            <li>Dispensação de medicamentos e lançamentos no SNGPC</li>
-            <li>Acompanhamento e contagem de estoque de medicamentos controlados</li>
-            <li>Organização da sala de aplicação e aplicação de injetáveis</li>
+            <li>Gestão completa de estabelecimento farmacêutico</li>
+            <li>Controle financeiro, compras e fiscal</li>
+            <li>Equipe e atendimento ao cliente</li>
           </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="job-title">Estagiário</div>
-          <div class="company">Laboratório Globo</div>
-          <div class="period"><i class="far fa-calendar"></i> Jan 2012 – Nov 2012 (11 meses)</div>
-          <ul>
-            <li>Atuação no setor de Garantia da Qualidade</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="job-title">Estagiário</div>
-          <div class="company">Drogaria Araujo S/A</div>
-          <div class="period"><i class="far fa-calendar"></i> Jun 2011 – Dez 2011 (7 meses)</div>
         </div>
       </div>
     </section>
@@ -440,7 +421,6 @@
     <div class="grid-2">
       <section class="card fade-in">
         <h2 class="card-title"><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h2>
-        
         <div class="edu-item">
           <div class="edu-icon"><i class="fas fa-pills"></i></div>
           <div>
@@ -449,11 +429,10 @@
             <div class="period">2003 – 2012</div>
           </div>
         </div>
-        
         <div class="edu-item">
           <div class="edu-icon"><i class="fas fa-calculator"></i></div>
           <div>
-            <div class="course">Contabilidade</div>
+            <div class="course">Bacharelado em Contabilidade</div>
             <div class="institution">Faculdade UniBF</div>
             <div class="period">Mar 2022 – Dez 2025</div>
           </div>
@@ -465,52 +444,31 @@
         <div class="lang-grid">
           <div class="lang-item">
             <div class="lang-name">Português</div>
-            <div class="lang-level">Nativo / Bilíngue</div>
+            <div class="lang-level">Nativo</div>
           </div>
           <div class="lang-item">
             <div class="lang-name">Inglês</div>
-            <div class="lang-level">Intermediário (Professional Working)</div>
+            <div class="lang-level">Intermediário</div>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- CERTIFICAÇÕES -->
+    <!-- VAGAS DE ESTÁGIO REAIS -->
     <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-certificate"></i> Cursos de Extensão e Certificações</h2>
-      <div class="edu-item">
-        <div class="edu-icon"><i class="fas fa-recycle"></i></div>
-        <div>
-          <div class="course">Gerenciamento de Resíduos</div>
-          <div class="institution">IFRS - Instituto Federal do Rio Grande do Sul (Plataforma Aprenda+)</div>
-          <div class="period">Nov 2024 – Dez 2024 • 60 horas</div>
-        </div>
+      <h2 class="card-title"><i class="fas fa-search"></i> Vagas Reais de Estágio</h2>
+      
+      <div class="filtros">
+        <button class="filtro-btn active" data-filtro="todas">Todas</button>
+        <button class="filtro-btn" data-filtro="contabilidade">Contabilidade</button>
+        <button class="filtro-btn" data-filtro="financeiro">Financeiro</button>
+        <button class="filtro-btn" data-filtro="administrativo">Administrativo</button>
       </div>
-      <div class="edu-item">
-        <div class="edu-icon"><i class="fas fa-brain"></i></div>
-        <div>
-          <div class="course">Introdução ao Machine Learning</div>
-          <div class="institution">BairesDev / DIO</div>
-          <div class="period">Ago 2026 • 1 hora</div>
-        </div>
+      
+      <div id="vagas-container" class="vagas-container">
+        <div class="loading"><i class="fas fa-spinner"></i><p style="margin-top: 12px;">Buscando vagas reais...</p></div>
       </div>
-    </section>
-
-    <!-- PROJETOS -->
-    <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-laptop-code"></i> Projetos</h2>
-      <div class="edu-item">
-        <div class="edu-icon"><i class="fas fa-link"></i></div>
-        <div>
-          <div class="course">Site Pessoal / Portfólio</div>
-          <div class="institution">
-            <a href="http://brunolabanca.comunidades.net/" target="_blank">
-              brunolabanca.comunidades.net <i class="fas fa-external-link-alt"></i>
-            </a>
-          </div>
-          <div class="period">Portfólio profissional online</div>
-        </div>
-      </div>
+      <p class="atualizado" id="data-atualizacao"></p>
     </section>
 
     <!-- CONTATO -->
@@ -538,30 +496,6 @@
             <p>Perfil Profissional</p>
           </div>
         </a>
-        <a href="http://brunolabanca.comunidades.net/" target="_blank" class="contact-item">
-          <div class="contact-icon"><i class="fas fa-globe"></i></div>
-          <div class="contact-text">
-            <p>Site Pessoal</p>
-            <p>Portfólio Online</p>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- VAGAS DE ESTÁGIO -->
-    <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-search"></i> Vagas de Estágio</h2>
-      
-      <!-- Filtros -->
-      <div class="filtros">
-        <button class="filtro-btn active" data-filtro="todas">Todas</button>
-        <button class="filtro-btn" data-filtro="remoto">Remoto</button>
-        <button class="filtro-btn" data-filtro="presencial">Presencial</button>
-        <button class="filtro-btn" data-filtro="hibrido">Híbrido</button>
-      </div>
-      
-      <div id="vagas-container" class="vagas-container">
-        <div class="loading"><i class="fas fa-spinner"></i><p style="margin-top: 12px;">Carregando vagas...</p></div>
       </div>
     </section>
 
@@ -575,4 +509,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
