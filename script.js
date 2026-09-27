@@ -1,14 +1,75 @@
 // ============================================================
 // SCRIPT.JS — Bruno Labanca de Oliveira
-// Versão com VAGAS REIS via API Adzuna
+// VERSÃO COM MÚLTIPLAS FONTES DE VAGAS
 // ============================================================
 
 // ==================== CONFIGURAÇÃO DA API ADZUNA ====================
 // 👉 Cadastre-se GRATUITAMENTE em: https://developer.adzuna.com/
-// Coloque suas credenciais abaixo:
 const ADZUNA_APP_ID = "";   // ← Seu App ID aqui
 const ADZUNA_APP_KEY = "";  // ← Sua Chave aqui
 const PAIS = "br";
+
+// ==================== OUTRAS PLATAFORMAS DE VAGAS ====================
+const PLATAFORMAS = [
+  { 
+    nome: "Vagas.com.br", 
+    url: "https://www.vagas.com.br/vagas-de-estagiario-contabilidade",
+    icone: "fas fa-briefcase",
+    descricao: "Milhares de vagas em todo o Brasil"
+  },
+  { 
+    nome: "Catho", 
+    url: "https://www.catho.com.br/vagas/estagiario-contabilidade/",
+    icone: "fas fa-building",
+    descricao "Encontre sua vaga mais próxima"
+  },
+  { 
+    nome: "LinkedIn", 
+    url: "https://www.linkedin.com/jobs/search/?keywords=estagiário%20contabilidade&location=Brasil",
+    icone: "fab fa-linkedin",
+    descricao: "Rede profissional — conecte diretamente"
+  },
+  { 
+    nome: "Trabalha Brasil", 
+    url: "https://www.trabalhabrasil.com.br/vagas?q=estagiário+contabilidade",
+    icone: "fas fa-map-marker-alt",
+    descricao: "Vagas por todo o território nacional"
+  },
+  { 
+    nome: "Glassdoor", 
+    url: "https://www.glassdoor.com.br/Encontrar-emprego.htm?sc.keyword=estagiário contabilidade",
+    icone: "fas fa-chart-bar",
+    descricao: "Salários e avaliações de empresas"
+  }
+];
+
+// Vagas de exemplo (aparece se a API não estiver configurada)
+const vagasExemplo = [
+  {
+    titulo: 'Estagiário de Contabilidade',
+    empresa: 'Grupo Contábil Brasil',
+    local: 'Rio de Janeiro - RJ',
+    descricao: 'Auxiliar em lançamentos contábeis, conciliação bancária e arquivamento de documentos. Ensino superior em andamento em Ciências Contábeis.',
+    tipo: 'contabilidade',
+    link: 'https://www.vagas.com.br'
+  },
+  {
+    titulo: 'Estagiário Financeiro',
+    empresa: 'Empresa de Serviços LTDA',
+    local: 'Cabo Frio - RJ',
+    descricao: 'Apoio em contas a pagar e receber, fluxo de caixa e relatórios financeiros. Conhecimento básico de Excel.',
+    tipo: 'financeiro',
+    link: 'https://www.vagas.com.br'
+  },
+  {
+    titulo: 'Auxiliar Administrativo/Contábil',
+    empresa: 'Comércio Local',
+    local: 'Araruama - RJ',
+    descricao: 'Organização de documentos, atendimento ao cliente e suporte ao setor contábil. Horário flexível.',
+    tipo: 'administrativo',
+    link: 'https://www.vagas.com.br'
+  }
+];
 
 // ==================== TEMA ESCURO/CLARO ====================
 const themeToggle = document.getElementById('themeToggle');
@@ -52,38 +113,24 @@ document.getElementById('downloadCV').addEventListener('click', (e) => {
 
 // ==================== BUSCAR VAGAS REAIS — API ADZUNA ====================
 const container = document.getElementById('vagas-container');
+const plataformasContainer = document.getElementById('plataformas-container');
 const dataAtualizacao = document.getElementById('data-atualizacao');
 const botoesFiltro = document.querySelectorAll('.filtro-btn');
 
-// Vagas de exemplo (aparece se a API não estiver configurada)
-const vagasExemplo = [
-  {
-    titulo: 'Estagiário de Contabilidade',
-    empresa: 'Grupo Contábil Brasil',
-    local: 'Rio de Janeiro - RJ',
-    descricao: 'Auxiliar em lançamentos contábeis, conciliação bancária e arquivamento de documentos. Ensino superior em andamento em Ciências Contábeis.',
-    tipo: 'contabilidade',
-    link: 'https://www.vagas.com.br'
-  },
-  {
-    titulo: 'Estagiário Financeiro',
-    empresa: 'Empresa de Serviços LTDA',
-    local: 'Cabo Frio - RJ',
-    descricao: 'Apoio em contas a pagar e receber, fluxo de caixa e relatórios financeiros. Conhecimento básico de Excel.',
-    tipo: 'financeiro',
-    link: 'https://www.vagas.com.br'
-  },
-  {
-    titulo: 'Auxiliar Administrativo/Contábil',
-    empresa: 'Comércio Local',
-    local: 'Araruama - RJ',
-    descricao: 'Organização de documentos, atendimento ao cliente e suporte ao setor contábil. Horário flexível.',
-    tipo: 'administrativo',
-    link: 'https://www.vagas.com.br'
-  }
-];
-
 let vagasCarregadas = [];
+
+// Carregar outras plataformas
+function carregarPlataformas() {
+  if (!plataformasContainer) return;
+  plataformasContainer.innerHTML = PLATAFORMAS.map(p => `
+    <a href="${p.url}" target="_blank" class="plataforma-card">
+      <i class="${p.icone}"></i>
+      <h4>${p.nome}</h4>
+      <p>${p.descricao}</p>
+      <span class="link-icone"><i class="fas fa-external-link-alt"></i></span>
+    </a>
+  `).join('');
+}
 
 // Buscar da API Adzuna
 async function buscarVagasAPI(busca = "estágio contabilidade") {
@@ -191,6 +238,7 @@ botoesFiltro.forEach(botao => {
 
 // Iniciar
 document.addEventListener('DOMContentLoaded', () => {
+  carregarPlataformas();
   buscarVagasAPI();
 });
 
