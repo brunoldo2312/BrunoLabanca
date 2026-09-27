@@ -226,8 +226,6 @@
     .vaga-card .empresa { font-weight: 600; color: var(--primary); font-size: 0.95rem; }
     .vaga-card .local { color: var(--gray); font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
     .vaga-card .descricao { font-size: 0.9rem; color: var(--dark); opacity: 0.8; margin-top: 4px; }
-    .vaga-card .tipo-vaga { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; width: fit-content; }
-    body.dark-mode .vaga-card .tipo-vaga { background: #1e3a5f; color: #93c5fd; }
     .vaga-card .btn-link { 
       display: inline-flex; 
       align-items: center; 
@@ -247,7 +245,56 @@
     .loading { text-align: center; padding: 40px 20px; color: var(--gray); }
     .loading i { animation: spin 1s linear infinite; font-size: 2rem; color: var(--primary); }
     @keyframes spin { 100% { transform: rotate(360deg); } }
-    .atualizado { font-size: 0.8rem; color: var(--gray); margin-top: 8px; }
+    .atualizado { font-size: 0.8rem; color: var(--gray); margin-top: 12px; }
+    
+    /* PLATAFORMAS DE VAGAS */
+    .plataformas-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      gap: 16px; 
+    }
+    .plataforma-card {
+      background: var(--light);
+      padding: 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+    .plataforma-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .plataforma-card i:first-child {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .plataforma-card h4 {
+      font-size: 1rem;
+      color: var(--dark);
+      font-weight: 600;
+    }
+    .plataforma-card p {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+    .plataforma-card .link-icone {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      color: var(--gray);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .plataforma-card:hover .link-icone {
+      opacity: 1;
+    }
     
     /* CONTATO */
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
@@ -265,7 +312,7 @@
     .share-btn.whatsapp { background: #25d366; }
     .share-btn.email { background: #ea4335; }
     
-    /* FOOTER E RESPONSIVE */
+    /* FOOTER E RESPONSIVO */
     footer { 
       text-align: center; 
       padding: 40px 20px; 
@@ -284,7 +331,7 @@
       .hero-text h1 { font-size: 2rem; }
       .hero-text .role { font-size: 1.1rem; }
       .hero-buttons { justify-content: center; }
-      .avatar { width: 130px; height: 130px; font-size: 52px; }
+      .avatar { width: 130px; height: 130px; }
       .card { padding: 24px; }
       .grid-2 { grid-template-columns: 1fr; }
       .container { margin-top: -40px; }
@@ -295,7 +342,7 @@
       .card-title { font-size: 1.2rem; } 
     }
     
-    /* Classe para animação de scroll */
+    /* Animação de scroll */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -316,8 +363,8 @@
 
   <header class="hero">
     <div class="hero-content">
-      <!-- 👉 COLOQUE SUA FOTO: substitua o arquivo foto-perfil.jpg -->
-      <img src="foto-perfil.jpg" alt="Bruno Labanca de Oliveira" class="avatar" aria-hidden="true" onerror="this.style.display='none'">
+      <!-- 👉 COLOQUE SUA FOTO: salve como foto-perfil.jpg na mesma pasta -->
+      <img src="foto-perfil.jpg" alt="Bruno Labanca de Oliveira" class="avatar" onerror="this.style.display='none'">
       <div class="hero-text">
         <h1>Bruno Labanca de Oliveira</h1>
         <div class="role">Farmacêutico • CRF Ativo</div>
@@ -340,7 +387,7 @@
       <h2 class="card-title"><i class="fas fa-user-tie"></i> Sobre mim</h2>
       <p>Farmacêutico com <strong>11 anos de experiência</strong>, profissional ético, comunicativo, resiliente e empático, empenhado em cuidar de perto da saúde e bem-estar das pessoas em todos os momentos da vida. <strong>CRF ativo.</strong></p>
       <p>Ampla experiência em <strong>compras, financeiro e fiscal</strong>, buscando sempre o cumprimento da legislação vigente. Sólida experiência em <strong>farmacologia clínica e gerenciamento de medicamentos</strong>.</p>
-      <p>Atualmente cursando <strong>Contabilidade</strong> e buscando uma oportunidade de estágio para aplicar e expandir meus conhecimentos na área financeira e contábil.</p>
+      <p>Atualmente cursando <strong>Ciências Contábeis</strong> e buscando uma oportunidade de estágio para aplicar e expandir meus conhecimentos na área financeira e contábil.</p>
       
       <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
         <h4 style="font-size: 0.9rem; color: var(--gray); margin-bottom: 8px;">Compartilhar este perfil:</h4>
@@ -382,7 +429,7 @@
       <h2 class="card-title"><i class="fas fa-briefcase"></i> Experiência Profissional</h2>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="job-title">Estagiário - Estágio Curricular Supervisionado</div>
+          <div class="job-title">Estagiário — Estágio Curricular Supervisionado</div>
           <div class="company">UniBF / Polo ETEP (Joinville)</div>
           <div class="period"><i class="far fa-calendar"></i> Fev 2025 – Atual (300 horas)</div>
           <ul>
@@ -411,13 +458,13 @@
           <ul>
             <li>Gestão completa de estabelecimento farmacêutico</li>
             <li>Controle financeiro, compras e fiscal</li>
-            <li>Equipe e atendimento ao cliente</li>
+            <li>Gestão de equipe e atendimento ao cliente</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- GRID: FORMAÇÃO + LÍNGUAS -->
+    <!-- GRID: FORMAÇÃO + IDIOMAS -->
     <div class="grid-2">
       <section class="card fade-in">
         <h2 class="card-title"><i class="fas fa-graduation-cap"></i> Formação Acadêmica</h2>
@@ -432,7 +479,7 @@
         <div class="edu-item">
           <div class="edu-icon"><i class="fas fa-calculator"></i></div>
           <div>
-            <div class="course">Bacharelado em Contabilidade</div>
+            <div class="course">Bacharelado em Ciências Contábeis</div>
             <div class="institution">Faculdade UniBF</div>
             <div class="period">Mar 2022 – Dez 2025</div>
           </div>
@@ -456,7 +503,7 @@
 
     <!-- VAGAS DE ESTÁGIO REAIS -->
     <section class="card fade-in">
-      <h2 class="card-title"><i class="fas fa-search"></i> Vagas Reais de Estágio</h2>
+      <h2 class="card-title"><i class="fas fa-search"></i> Vagas de Estágio</h2>
       
       <div class="filtros">
         <button class="filtro-btn active" data-filtro="todas">Todas</button>
@@ -466,9 +513,18 @@
       </div>
       
       <div id="vagas-container" class="vagas-container">
-        <div class="loading"><i class="fas fa-spinner"></i><p style="margin-top: 12px;">Buscando vagas reais...</p></div>
+        <div class="loading"><i class="fas fa-spinner"></i><p style="margin-top: 12px;">Buscando vagas...</p></div>
       </div>
       <p class="atualizado" id="data-atualizacao"></p>
+    </section>
+
+    <!-- OUTRAS PLATAFORMAS DE VAGAS -->
+    <section class="card fade-in">
+      <h2 class="card-title"><i class="fas fa-globe"></i> Outras Plataformas</h2>
+      <p style="color: var(--gray); margin-bottom: 16px;">Não encontrou o que procura? Confira estas plataformas:</p>
+      <div id="plataformas-container" class="plataformas-grid">
+        <div class="loading" style="padding: 10px;">Carregando plataformas...</div>
+      </div>
     </section>
 
     <!-- CONTATO -->
