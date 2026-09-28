@@ -1,32 +1,41 @@
 /* =========================================================
    Portfólio Bruno Labanca — script.js
-   VERSÃO COMPLETA E MESCLADA
+   VERSÃO COMPLETA — Adzuna + SINE (CSV)
    
    Recursos:
    - Tema claro/escuro com persistência
-   - Lista de plataformas externas (renderizada via JS)
-   - Busca dinâmica de vagas (Adzuna API)
+   - Lista de plataformas externas
+   - Vagas reais da Adzuna API
+   - Vagas do SINE (via CSV local)
    - Filtros por categoria (contabilidade/financeiro/administrativo)
    - Sistema de favoritos (localStorage)
+   - Busca dinâmica
    - Compartilhar vaga (copiar link)
-   - Contadores: vagas encontradas, visitas
-   - Tratamento de erro detalhado (401/429/CORS/400)
-   - Escape seguro de HTML e atributos
+   - Contadores de vagas e visitas
+   - Tratamento de erro detalhado
    ========================================================= */
 
 /* =========================================================
    CONFIGURAÇÃO ADZUNA
    ---------------------------------------------------------
    👉 Cadastre-se grátis em: https://developer.adzuna.com/
-   👉 Cole o App ID e App Key abaixo (100 buscas/dia grátis)
    ⚠️  NUNCA suba estas chaves para o GitHub
    ========================================================= */
-const ADZUNA_APP_ID  = '';   // <-- cole aqui seu App ID (~8 caracteres)
-const ADZUNA_APP_KEY = '';   // <-- cole aqui sua App Key (32 caracteres)
+const ADZUNA_APP_ID  = '';   // <-- cole aqui seu App ID
+const ADZUNA_APP_KEY = '';   // <-- cole aqui sua App Key
 const ADZUNA_COUNTRY = 'br';
 const ADZUNA_QUERY   = 'estágio contabilidade';
-const ADZUNA_LIMIT   = 50;   // máximo permitido pela API
-const ADZUNA_DIAS    = 15;   // só vagas dos últimos X dias
+const ADZUNA_LIMIT   = 50;
+const ADZUNA_DIAS    = 15;
+
+/* =========================================================
+   CONFIGURAÇÃO SINE
+   ---------------------------------------------------------
+   👉 Baixe o CSV em: https://dados.gov.br
+   👉 Salve como "vagas-sine.csv" na mesma pasta do index.html
+   ========================================================= */
+const SINE_CSV_PATH = 'vagas-sine.csv';
+const SINE_ATIVO    = true; // mude para false se não quiser usar o SINE
 
 /* =========================================================
    PLATAFORMAS EXTERNAS
@@ -79,45 +88,59 @@ const PLATAFORMAS = [
     url: "https://www.ciee.org.br/vagas",
     icone: "fas fa-graduation-cap",
     descricao: "Especializado em estágios e aprendizes"
+  },
+  {
+    nome: "Emprega Brasil (SINE)",
+    url: "https://empregabrasil.mte.gov.br/",
+    icone: "fas fa-landmark",
+    descricao: "Portal oficial do governo federal"
   }
 ];
 
 /* =========================================================
-   VAGAS DE EXEMPLO (fallback quando API não configurada)
+   VAGAS DE EXEMPLO (fallback)
    ========================================================= */
 const VAGAS_EXEMPLO = [
   {
     id: 'ex-1',
-    title: 'Estágio em Contabilidade',
-    company: { display_name: 'Grupo Contábil ABC' },
-    location: { display_name: 'Rio de Janeiro, RJ' },
-    description: 'Auxiliar em lançamentos contábeis, conciliação bancária e arquivamento de documentos.',
-    redirect_url: 'https://www.vagas.com.br',
+    titulo: 'Estágio em Contabilidade',
+    empresa: 'Grupo Contábil ABC',
+    local: 'Rio de Janeiro, RJ',
+    descricao: 'Auxiliar em lançamentos contábeis, conciliação bancária e arquivamento de documentos.',
+    tipo: 'contabilidade',
+    link: 'https://www.vagas.com.br',
+    fonte: 'exemplo'
   },
   {
     id: 'ex-2',
-    title: 'Estágio em Departamento Fiscal',
-    company: { display_name: 'Escritório Fiscal XYZ' },
-    location: { display_name: 'Cabo Frio, RJ' },
-    description: 'Apoio em rotinas fiscais, apuração de impostos e organização documental.',
-    redirect_url: 'https://www.catho.com.br',
+    titulo: 'Estágio em Departamento Fiscal',
+    empresa: 'Escritório Fiscal XYZ',
+    local: 'Cabo Frio, RJ',
+    descricao: 'Apoio em rotinas fiscais, apuração de impostos e organização documental.',
+    tipo: 'contabilidade',
+    link: 'https://www.catho.com.br',
+    fonte: 'exemplo'
   },
   {
     id: 'ex-3',
-    title: 'Estágio em Controladoria',
-    company: { display_name: 'Indústria Nacional' },
-    location: { display_name: 'Remoto' },
-    description: 'Apoio em relatórios gerenciais, análise de custos e fluxo de caixa.',
-    redirect_url: 'https://www.linkedin.com/jobs',
+    titulo: 'Estágio em Controladoria',
+    empresa: 'Indústria Nacional',
+    local: 'Remoto',
+    descricao: 'Apoio em relatórios gerenciais, análise de custos e fluxo de caixa.',
+    tipo: 'financeiro',
+    link: 'https://www.linkedin.com/jobs',
+    fonte: 'exemplo'
   },
   {
     id: 'ex-4',
-    title: 'Estágio em Auditoria',
-    company: { display_name: 'Auditoria Prime' },
-    location: { display_name: 'Niterói, RJ' },
-    description: 'Suporte em auditoria interna, conferência de balanços e controles internos.',
-    redirect_url: 'https://www.glassdoor.com.br',
-  },
+    titulo: 'Estágio em Auditoria',
+    empresa: 'Auditoria Prime',
+    local: 'Niterói, RJ',
+    descricao: 'Suporte em auditoria interna, conferência de balanços e controles internos.',
+    tipo: 'contabilidade',
+    link: 'https://www.glassdoor.com.br',
+    fonte: 'exemplo'
+  }
 ];
 
 /* =========================================================
@@ -129,15 +152,12 @@ let filtroAtual = 'todas';
 /* =========================================================
    UTILITÁRIOS
    ========================================================= */
-
-// Escapa texto para exibição segura em HTML
 function escapar(txt) {
   const d = document.createElement('div');
   d.textContent = txt ?? '';
   return d.innerHTML;
 }
 
-// Escapa valor para uso em atributos HTML (href, data-*, etc.)
 function escapeAtributo(texto) {
   return String(texto ?? '')
     .replace(/&/g, '&amp;')
@@ -147,14 +167,58 @@ function escapeAtributo(texto) {
     .replace(/>/g, '&gt;');
 }
 
-// Verifica se as chaves da Adzuna estão configuradas (não são placeholders)
-function chavesConfiguradas() {
+function chavesAdzunaConfiguradas() {
   return ADZUNA_APP_ID &&
          ADZUNA_APP_KEY &&
          !ADZUNA_APP_ID.includes('COLE') &&
          !ADZUNA_APP_KEY.includes('COLE') &&
          ADZUNA_APP_ID.length > 3 &&
          ADZUNA_APP_KEY.length > 10;
+}
+
+/* =========================================================
+   PARSER DE CSV SIMPLES
+   Suporta aspas duplas, vírgulas dentro de aspas e quebras de linha
+   ========================================================= */
+function parseCSV(texto) {
+  const linhas = [];
+  let linhaAtual = [];
+  let campoAtual = '';
+  let dentroAspas = false;
+
+  for (let i = 0; i < texto.length; i++) {
+    const char = texto[i];
+    const proximo = texto[i + 1];
+
+    if (char === '"') {
+      if (dentroAspas && proximo === '"') {
+        campoAtual += '"';
+        i++;
+      } else {
+        dentroAspas = !dentroAspas;
+      }
+    } else if (char === ',' && !dentroAspas) {
+      linhaAtual.push(campoAtual);
+      campoAtual = '';
+    } else if ((char === '\n' || char === '\r') && !dentroAspas) {
+      if (char === '\r' && proximo === '\n') i++;
+      if (campoAtual !== '' || linhaAtual.length > 0) {
+        linhaAtual.push(campoAtual);
+        linhas.push(linhaAtual);
+        linhaAtual = [];
+        campoAtual = '';
+      }
+    } else {
+      campoAtual += char;
+    }
+  }
+
+  if (campoAtual !== '' || linhaAtual.length > 0) {
+    linhaAtual.push(campoAtual);
+    linhas.push(linhaAtual);
+  }
+
+  return linhas;
 }
 
 /* =========================================================
@@ -184,10 +248,9 @@ function iniciarTema() {
 }
 
 /* =========================================================
-   RENDERIZAR PLATAFORMAS EXTERNAS
+   PLATAFORMAS
    ========================================================= */
 function renderizarPlataformas() {
-  // Aceita tanto .plataformas quanto #plataformas-container
   const container =
     document.querySelector('.plataformas') ||
     document.getElementById('plataformas-container');
@@ -225,11 +288,11 @@ function toggleFavorito(vagaId) {
     favs.push(vagaId);
   }
   localStorage.setItem('vagasFavoritas', JSON.stringify(favs));
-  renderizarVagas(filtroAtual);
+  renderizarVagas(vagasCarregadas);
 }
 
 /* =========================================================
-   COMPARTILHAR VAGA
+   COMPARTILHAR
    ========================================================= */
 function compartilharVaga(link) {
   if (!link || link === '#') {
@@ -240,7 +303,6 @@ function compartilharVaga(link) {
   navigator.clipboard.writeText(link)
     .then(() => alert('🔗 Link da vaga copiado para a área de transferência!'))
     .catch(() => {
-      // Fallback para navegadores antigos
       const input = document.createElement('input');
       input.value = link;
       document.body.appendChild(input);
@@ -256,7 +318,7 @@ function compartilharVaga(link) {
 }
 
 /* =========================================================
-   CLASSIFICAR VAGA POR CATEGORIA
+   CLASSIFICAR VAGA
    ========================================================= */
 function classificarVaga(texto) {
   const t = texto.toLowerCase();
@@ -266,23 +328,83 @@ function classificarVaga(texto) {
 }
 
 /* =========================================================
-   PROCESSAR VAGAS DA API
+   PROCESSAR VAGAS DA ADZUNA
    ========================================================= */
-function processarVagas(lista) {
+function processarVagasAdzuna(lista) {
   return lista.map(v => ({
-    id: v.id || `vaga-${Math.random().toString(36).substring(2, 9)}`,
+    id: v.id || `adzuna-${Math.random().toString(36).substring(2, 9)}`,
     titulo: v.title || 'Vaga sem título',
     empresa: v.company?.display_name || 'Empresa não informada',
     local: v.location?.display_name || 'Local não informado',
     descricao: (v.description || 'Sem descrição disponível.').substring(0, 160) + '...',
     tipo: classificarVaga((v.title || '') + ' ' + (v.description || '')),
     link: v.redirect_url || '#',
-    // Compatibilidade com renderização antiga
-    title: v.title,
-    company: v.company,
-    location: v.location,
-    redirect_url: v.redirect_url
+    fonte: 'adzuna'
   }));
+}
+
+/* =========================================================
+   PROCESSAR VAGAS DO SINE (CSV)
+   ========================================================= */
+function processarVagasSINE(linhasCSV) {
+  if (!linhasCSV || linhasCSV.length < 2) return [];
+
+  // Cabeçalho — normaliza para minúsculas sem acento
+  const cabecalho = linhasCSV[0].map(c =>
+    c.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim()
+  );
+
+  // Localiza índices comuns nos CSVs do SINE (varia conforme o ano)
+  const idx = {
+    ocupacao: cabecalho.findIndex(c => c.includes('ocupacao') || c.includes('cargo') || c.includes('titulo')),
+    municipio: cabecalho.findIndex(c => c.includes('municipio')),
+    uf: cabecalho.findIndex(c => c.includes('uf') || c.includes('estado')),
+    escolaridade: cabecalho.findIndex(c => c.includes('escolaridade') || c.includes('grau')),
+    experiencia: cabecalho.findIndex(c => c.includes('experiencia')),
+    descricao: cabecalho.findIndex(c => c.includes('descricao') || c.includes('atividade')),
+    quantidade: cabecalho.findIndex(c => c.includes('quantidade') || c.includes('vagas'))
+  };
+
+  const vagas = [];
+
+  for (let i = 1; i < linhasCSV.length; i++) {
+    const linha = linhasCSV[i];
+    if (!linha || linha.length < 2) continue;
+
+    const ocupacao = idx.ocupacao > -1 ? (linha[idx.ocupacao] || '').trim() : '';
+    const municipio = idx.municipio > -1 ? (linha[idx.municipio] || '').trim() : '';
+    const uf = idx.uf > -1 ? (linha[idx.uf] || '').trim() : '';
+    const escolaridade = idx.escolaridade > -1 ? (linha[idx.escolaridade] || '').trim() : '';
+    const experiencia = idx.experiencia > -1 ? (linha[idx.experiencia] || '').trim() : '';
+    const descricaoCSV = idx.descricao > -1 ? (linha[idx.descricao] || '').trim() : '';
+    const quantidade = idx.quantidade > -1 ? (linha[idx.quantidade] || '').trim() : '';
+
+    // Ignora linhas sem ocupação
+    if (!ocupacao) continue;
+
+    // Monta descrição enriquecida
+    const partesDescricao = [];
+    if (descricaoCSV) partesDescricao.push(descricaoCSV);
+    if (escolaridade) partesDescricao.push(`Escolaridade: ${escolaridade}`);
+    if (experiencia) partesDescricao.push(`Experiência: ${experiencia}`);
+    if (quantidade) partesDescricao.push(`Vagas: ${quantidade}`);
+
+    vagas.push({
+      id: `sine-${i}`,
+      titulo: ocupacao,
+      empresa: 'SINE / Emprega Brasil',
+      local: municipio ? `${municipio} - ${uf || 'BR'}` : (uf || 'Brasil'),
+      descricao: partesDescricao.join(' • ') || 'Vaga cadastrada no sistema SINE.',
+      tipo: classificarVaga(ocupacao + ' ' + descricaoCSV),
+      link: 'https://empregabrasil.mte.gov.br/',
+      fonte: 'sine'
+    });
+
+    // Limita para não sobrecarregar a página
+    if (vagas.length >= 100) break;
+  }
+
+  return vagas;
 }
 
 /* =========================================================
@@ -292,23 +414,18 @@ function renderizarVagas(vagas) {
   const container = document.getElementById('vagas-container');
   if (!container) return;
 
-  // Se for array bruto da API, processa
-  if (vagas.length > 0 && vagas[0].title && !vagas[0].titulo) {
-    vagasCarregadas = processarVagas(vagas);
-  } else {
-    vagasCarregadas = vagas;
-  }
+  // Normaliza: aceita tanto objetos processados quanto crus
+  let lista = Array.isArray(vagas) ? vagas : [];
 
   const favoritos = getFavoritos();
   let filtradas = [];
 
-  // Aplica filtro atual
   if (filtroAtual === 'favoritas') {
-    filtradas = vagasCarregadas.filter(v => favoritos.includes(v.id));
+    filtradas = lista.filter(v => favoritos.includes(v.id));
   } else if (filtroAtual === 'todas') {
-    filtradas = vagasCarregadas;
+    filtradas = lista;
   } else {
-    filtradas = vagasCarregadas.filter(v => v.tipo === filtroAtual);
+    filtradas = lista.filter(v => v.tipo === filtroAtual);
   }
 
   // Atualiza contador
@@ -332,16 +449,17 @@ function renderizarVagas(vagas) {
   // Renderiza cada vaga
   container.innerHTML = filtradas.map(v => {
     const isFav = favoritos.includes(v.id);
-    const titulo = v.titulo || v.title || 'Vaga';
-    const empresa = v.empresa || v.company?.display_name || 'Empresa não informada';
-    const local = v.local || v.location?.display_name || 'Local não informado';
-    const descricao = v.descricao || (v.description || '').substring(0, 160) + '...';
     const link = v.link || v.redirect_url || '#';
+    const badgeFonte = v.fonte === 'sine'
+      ? '<span class="badge-fonte" style="background:#16a34a;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.7rem;margin-left:6px;">SINE</span>'
+      : v.fonte === 'adzuna'
+        ? '<span class="badge-fonte" style="background:#2563eb;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.7rem;margin-left:6px;">Adzuna</span>'
+        : '';
 
     return `
-      <div class="vaga-card">
+      <div class="vaga-card" data-fonte="${v.fonte || 'exemplo'}">
         <div class="vaga-card-header" style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
-          <h3 style="margin:0;">${escapar(titulo)}</h3>
+          <h3 style="margin:0;">${escapar(v.titulo)}${badgeFonte}</h3>
           <button
             class="btn-fav"
             data-fav-id="${escapeAtributo(v.id)}"
@@ -352,9 +470,9 @@ function renderizarVagas(vagas) {
           </button>
         </div>
 
-        <p class="empresa"><i class="fas fa-building"></i> ${escapar(empresa)}</p>
-        <p class="localidade"><i class="fas fa-map-marker-alt"></i> ${escapar(local)}</p>
-        <p class="descricao">${escapar(descricao)}</p>
+        <p class="empresa"><i class="fas fa-building"></i> ${escapar(v.empresa)}</p>
+        <p class="localidade"><i class="fas fa-map-marker-alt"></i> ${escapar(v.local)}</p>
+        <p class="descricao">${escapar(v.descricao)}</p>
 
         <div class="vaga-card-footer" style="display:flex; gap:8px; margin-top:12px;">
           <a href="${escapeAtributo(link)}"
@@ -376,11 +494,10 @@ function renderizarVagas(vagas) {
     `;
   }).join('');
 
-  // Delegação de eventos (evita onclick inline)
+  // Delegação de eventos
   container.querySelectorAll('.btn-fav').forEach(btn => {
     btn.addEventListener('click', () => toggleFavorito(btn.dataset.favId));
   });
-
   container.querySelectorAll('.btn-share').forEach(btn => {
     btn.addEventListener('click', () => compartilharVaga(btn.dataset.shareLink));
   });
@@ -390,33 +507,11 @@ function renderizarVagas(vagas) {
    BUSCAR VAGAS NA ADZUNA
    ========================================================= */
 async function buscarVagasAdzuna(busca = ADZUNA_QUERY) {
-  const container = document.getElementById('vagas-container');
-  const dataAtualizacao = document.getElementById('data-atualizacao');
-
-  // Se chaves não configuradas, usa exemplos
-  if (!chavesConfiguradas()) {
-    vagasCarregadas = VAGAS_EXEMPLO;
-    filtroAtual = 'todas';
-    renderizarVagas(vagasCarregadas);
-
-    if (dataAtualizacao) {
-      dataAtualizacao.textContent = '🔧 Configure ADZUNA_APP_ID e ADZUNA_APP_KEY para vagas em tempo real';
-      dataAtualizacao.style.color = 'var(--primary)';
-    }
-    return;
-  }
-
-  // Loading
-  if (container) {
-    container.innerHTML = `
-      <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">
-        <i class="fas fa-spinner fa-spin" style="font-size:2rem; margin-bottom:12px;"></i>
-        <p>Buscando vagas atualizadas...</p>
-      </div>`;
+  if (!chavesAdzunaConfiguradas()) {
+    return null;
   }
 
   try {
-    // Monta URL com parâmetros otimizados
     const baseUrl = `https://api.adzuna.com/v1/api/jobs/${ADZUNA_COUNTRY}/search/1`;
     const params = new URLSearchParams({
       app_id: ADZUNA_APP_ID,
@@ -441,54 +536,104 @@ async function buscarVagasAdzuna(busca = ADZUNA_QUERY) {
     }
 
     const dados = await resposta.json();
+    if (!dados.results || dados.results.length === 0) return [];
 
-    if (!dados.results || dados.results.length === 0) {
-      vagasCarregadas = [];
-      renderizarVagas([]);
-      if (dataAtualizacao) {
-        dataAtualizacao.textContent = `🔍 Nenhuma vaga encontrada para "${busca}".`;
-        dataAtualizacao.style.color = 'var(--primary)';
-      }
-      return;
-    }
-
-    vagasCarregadas = processarVagas(dados.results);
-    renderizarVagas(vagasCarregadas);
-
-    if (dataAtualizacao) {
-      const agora = new Date().toLocaleString('pt-BR');
-      const total = dados.count || dados.results.length;
-      dataAtualizacao.textContent = `✅ ${dados.results.length} de ${total} vagas — atualizado em ${agora}`;
-      dataAtualizacao.style.color = 'inherit';
-    }
+    return processarVagasAdzuna(dados.results);
 
   } catch (erro) {
     console.error('Erro Adzuna:', erro);
-
-    let mensagem = '⚠️ Erro ao buscar vagas. Exibindo exemplos:';
-
-    if (erro.message.includes('401') || erro.message.includes('403')) {
-      mensagem = '🔑 Chave da API inválida. Verifique suas credenciais.';
-    } else if (erro.message.includes('429')) {
-      mensagem = '⏱️ Limite diário atingido (100/dia). Tente novamente amanhã.';
-    } else if (erro.message.includes('Failed to fetch') || erro.message.includes('CORS')) {
-      mensagem = '🌐 Erro de CORS. Rode via GitHub Pages ou Live Server.';
-    } else if (erro.message.includes('400')) {
-      mensagem = '⚠️ Parâmetros inválidos na consulta.';
-    }
-
-    vagasCarregadas = VAGAS_EXEMPLO;
-    renderizarVagas(vagasCarregadas);
-
-    if (dataAtualizacao) {
-      dataAtualizacao.textContent = mensagem;
-      dataAtualizacao.style.color = 'var(--primary)';
-    }
+    return null;
   }
 }
 
 /* =========================================================
-   EVENTOS DE FILTRO E BUSCA
+   CARREGAR VAGAS DO SINE (CSV LOCAL)
+   ========================================================= */
+async function carregarVagasSINE() {
+  if (!SINE_ATIVO) return null;
+
+  try {
+    const resposta = await fetch(SINE_CSV_PATH);
+    if (!resposta.ok) throw new Error('Arquivo CSV não encontrado');
+
+    const texto = await resposta.text();
+    const linhasCSV = parseCSV(texto);
+    const vagas = processarVagasSINE(linhasCSV);
+
+    console.log(`✅ SINE: ${vagas.length} vagas carregadas do CSV`);
+    return vagas;
+
+  } catch (erro) {
+    console.warn('⚠️ SINE: CSV não disponível (', erro.message, ')');
+    return null;
+  }
+}
+
+/* =========================================================
+   CARREGAR VAGAS (AGREGADOR — Adzuna + SINE)
+   ========================================================= */
+async function carregarTodasVagas(busca = ADZUNA_QUERY) {
+  const container = document.getElementById('vagas-container');
+  const dataca)Atualizacao = document.getElementById('data-atualiz {
+acao');
+
+  // Loading
+  if (container) {
+       container.innerHTML = `
+      <div style=" inputgrid-column:1/-1Bus; text-align:center; padding:40px; color:var(--text-muted);">
+        <i class="fas fa-spinner fa-spin" style="font-size:2rem; margin-bottom:12px;"></i>
+        <p>Buscando vagas em várias fontes...</p>
+      </div>`;
+  }
+
+  // Busca em paralelo das duas fontes
+  const [vagasAdzuna, vagasSINE] = await Promise.all([
+    buscarVagasAdzuna(busca),
+    carregarVagasSINE()
+  ]);
+
+  // Junta os resultados (Adzuna primeiro, SINE depois)
+  const todasVagas = [
+    ...(vagasAdzuna || []),
+    ...(vagasSINE || [])
+  ];
+
+  // Se nada veio de nenhuma fonte, usa exemplos
+  if (todasVagas.length === 0) {
+    vagasCarregadas = VAGAS_EXEMPLO;
+    renderizarVagas(vagasCarregadas);
+
+    if (dataAtualizacao) {
+      let msg = '⚠️ Nenhuma fonte de vagas disponível. Exibindo exemplos.';
+      if (!chavesAdzunaConfiguradas()) {
+        msg = '🔧 Configure Adzuna ou adicione vagas-sine.csv para vagas reais.';
+      }
+      dataAtualizacao.textContent = msg;
+      dataAtualizacao.style.color = 'var(--primary)';
+    }
+    return;
+  }
+
+  vagasCarregadas = todasVagas;
+  renderizarVagas(vagasCarregadas);
+
+  // Mensagem de status
+  if (dataAtualizacao) {
+    const agora = new Date().toLocaleString('pt-BR');
+    const qtdAdzuna = (vagasAdzuna || []).length;
+    const qtdSINE = (vagasSINE || []).length;
+
+    const fontes = [];
+    if (qtdAdzuna > 0) fontes.push(`${qtdAdzuna} Adzuna`);
+    if (qtdSINE > 0) fontes.push(`${qtdSINE} SINE`);
+
+    dataAtualizacao.textContent = `✅ ${todasVagas.length} vagas (${fontes.join(' + ')}) — atualizado em ${agora}`;
+    dataAtualizacao.style.color = 'inherit';
+  }
+}
+
+/* =========================================================
+   FILTROS E BUSCA
    ========================================================= */
 function iniciarFiltros() {
   const botoes = document.querySelectorAll('.filtro-btn');
@@ -508,13 +653,12 @@ function iniciarBusca() {
 
   const executar = () => {
     const termo = inputBusca ? inputBusca.value.trim() : '';
-    buscarVagasAdzuna(termo !== '' ? termo : ADZUNA_QUERY);
+    carregarTodasVagas(termo !== '' ? termo : ADZUNA_QUERY);
   };
 
   if (btnBuscar) btnBuscar.addEventListener('click', executar);
 
-  if (inputBusca) {
-    inputBusca.addEventListener('keypress', (e) => {
+  if (inputBusca.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') executar();
     });
   }
@@ -537,7 +681,7 @@ function iniciarContadorVisitas() {
 }
 
 /* =========================================================
-   DOWNLOAD DO CURRÍCULO
+   DOWNLOAD CV
    ========================================================= */
 function iniciarDownloadCV() {
   const el = document.getElementById('downloadCV');
@@ -550,7 +694,7 @@ function iniciarDownloadCV() {
 }
 
 /* =========================================================
-   ANIMAÇÃO DE SCROLL (fade-in)
+   ANIMAÇÃO DE SCROLL
    ========================================================= */
 function iniciarAnimacaoScroll() {
   if (!('IntersectionObserver' in window)) return;
@@ -575,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarContadorVisitas();
   iniciarDownloadCV();
   iniciarAnimacaoScroll();
-  buscarVagasAdzuna();
+  carregarTodasVagas(); // Carrega Adzuna + SINE juntas
 });
 
 console.log('✅ Portfólio Bruno Labanca carregado com sucesso!');
